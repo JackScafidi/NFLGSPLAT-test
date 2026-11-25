@@ -62,6 +62,9 @@ Known defects, in the order a viewer would notice them:
 The [Foundations plan](https://claude.ai/artifact/K7SoiabWPzAFs2HgP2Ekpz):
 foundations, then the play data contract, measurement, every object, breadth.
 
+First blocker: play 1's inputs aren't on this PC. They're being downloaded
+again; see [the checklist](reference/play-1-inputs.md).
+
 ## Open items as listed on 2026-09-10 (word for word)
 
 Kept from HANDOFF.md for its measurements. Several items are done or have

@@ -1,12 +1,12 @@
 ---
 type: spec
-status: draft, for the owner's review; step 1 (runner core) built
+status: accepted except the stage list; step 1 (runner core) built
 date: 2026-11-25
 ---
 
 # Pipeline runner: design
 
-Draft written unattended on 2026-11-25 from a read of `scripts/pipeline_play.sh`. Step 1 of the order of work, the runner core, is built (`nfl_gsplat/pipeline/runner.py`, 17 tests with fake stages). Nothing else is, and the open questions at the end need the owner's answers before step 2.
+Draft written unattended on 2026-11-25 from a read of `scripts/pipeline_play.sh`. Step 1 of the order of work, the runner core, is built (`nfl_gsplat/pipeline/runner.py`, 17 tests with fake stages). Nothing else is, and the owner answered three of the four questions at the end on 2026-11-25; the stage list waits for play 1.
 
 ## Goal
 
@@ -151,9 +151,9 @@ The real stages are checked by running play 1 once its inputs are on this PC.
 
 Step 3 needs play 1's clips, the SMPL-X and VPoser files, the model weights and the SMPLest-X checkout on this PC.
 
-## Open questions for the owner
+## Questions, answered by the owner on 2026-11-25
 
-1. Is the stage list above still the whole pipeline? Anything run by hand after `pipeline_play.sh` for v122 (09h's fine-tuned keypoints, the 08z / 08za folds) would become a stage or a `corrections.yaml` entry.
-2. One environment or two ([0016](../../decisions/0016-one-numpy-2-environment.md))? With one, the `Env` column goes away.
-3. Hash-based re-runs, or keep simple markers plus a declared "clears" list? Hashing is what the plan asks for, but it is the bigger build.
-4. Should `measure` (07l) stay an every-run, never-failing step?
+1. **Is the stage list the whole pipeline?** Not settled. The hand-run steps behind v122 (09h's fine-tuned keypoints, the 08z / 08za folds and row drops) stay out of the first stage list and are decided after play 1 runs on this PC.
+2. **One environment or two?** Aim for one NumPy 2 environment ([0016](../../decisions/0016-one-numpy-2-environment.md)), and fall back to two only if play 1 fails in it. Until then the `Env` column stays, so the stages can run in either setup.
+3. **Hash-based re-runs or markers?** Content hashes, as built in step 1.
+4. **Should `measure` (07l) stay an every-run, never-failing step?** Yes. It reports before the render and never stops the run; its numbers go into the run manifest.

@@ -22,7 +22,7 @@ ball and the referees out, on every frame.
 | `decisions/` | One note per decision: what was chosen, why, what it rules out | [Decisions](decisions/Decisions.md) |
 | `journal/` | One dated note per working session from 2026-11-24 on | [Journal](journal/Journal.md) |
 | `plays/` | One note per play: clips, situation, status | [Plays](plays/Plays.md) |
-| `reference/` | How the pipeline works, the working method, the old environment | [Pipeline](reference/pipeline.md) |
+| `reference/` | How the pipeline works, the working method, the old environment, play 1's inputs | [Pipeline](reference/pipeline.md), [Play 1's inputs](reference/play-1-inputs.md) |
 | `superpowers/` | Design specs and their implementation plans (June to August) | [Specs and plans](superpowers/Specs-and-plans.md) |
 | `agent-context/` | Claude's memory notes, one fact each | [Memory index](agent-context/MEMORY.md) |
 | `archive/` | Out-of-date notes, kept for search | [Archive](archive/Archive.md) |

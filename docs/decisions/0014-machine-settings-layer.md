@@ -1,6 +1,6 @@
 ---
 type: decision
-status: proposed
+status: accepted
 date: 2026-11-25
 ---
 
@@ -57,7 +57,7 @@ command-line flag still beats all three.
   play-folder layout is picked. `paths.py`'s season tree and
   `configs/pipeline.yaml`'s `paths:` block are unchanged.
 
-Made while the owner was away (2026-11-25), so `proposed` until reviewed.
+Made while the owner was away (2026-11-25); accepted by the owner the same day.
 
 ## Related
 

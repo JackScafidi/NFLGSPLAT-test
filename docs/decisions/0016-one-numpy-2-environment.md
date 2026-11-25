@@ -28,6 +28,9 @@ Not adopted yet. The gate is play 1 run end to end in that environment on
 this PC, with its measures (census, steps, hops, surges, joint jitter) no
 worse than v122.
 
+The owner chose this direction on 2026-11-25: build the one environment, and
+fall back to two only if play 1 fails in it.
+
 ## Consequences
 
 - If adopted: one interpreter setting instead of two, no pickle rule between

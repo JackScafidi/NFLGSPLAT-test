@@ -301,7 +301,7 @@ def build_autocalib_npz_learned(*, play_dir, videos, fps, model_ckpt, yard_min,
         from nfl_gsplat.errors import SetupError
         raise SetupError(
             f"model checkpoint not found: {model_ckpt} — train one first "
-            "(sbatch scripts/train_landmarks.sbatch ...). See SETUP.md §3."
+            "(python -m nfl_gsplat.landmarks.train --label ... --frames ... --out ...)."
         )
 
     schema = LandmarkSchema(yard_min=yard_min, yard_max=yard_max)

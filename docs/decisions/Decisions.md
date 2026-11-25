@@ -24,9 +24,10 @@ New note: copy [the template](../templates/decision.md).
 | [0011](0011-endzone-pitch-not-from-ankle-ruler.md) | Don't set the endzone pitch from the ankle ruler alone | accepted | 2026-09-05 |
 | [0012](0012-no-seeding-joint-solve-from-another-play.md) | Don't seed the joint solve with another play's mount | accepted | 2026-09-05 |
 | [0013](0013-bound-implied-lens-in-paint-labelling.md) | Bound the paint reader's implied lens to the seed play's | accepted | 2026-09-05 |
-| [0014](0014-machine-settings-layer.md) | One settings layer for this machine's paths and interpreters | proposed | 2026-11-25 |
+| [0014](0014-machine-settings-layer.md) | One settings layer for this machine's paths and interpreters | accepted | 2026-11-25 |
 | [0015](0015-camera-above-the-field.md) | The joint solve keeps the camera above the field | accepted | 2026-11-24 |
-| [0016](0016-one-numpy-2-environment.md) | One NumPy 2 environment for the whole pipeline | proposed | 2026-11-25 |
+| [0016](0016-one-numpy-2-environment.md) | One NumPy 2 environment for the whole pipeline | proposed (direction chosen) | 2026-11-25 |
+| [0017](0017-archive-the-slurm-path.md) | Archive the SLURM path, don't delete it | accepted | 2026-11-25 |
 
 Decisions 0005 to 0013 come from HANDOFF.md's "What has been measured and
 rejected" list (recorded 2026-11-24, evidence word for word). Many more

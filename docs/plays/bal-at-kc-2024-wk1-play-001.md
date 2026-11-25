@@ -13,6 +13,7 @@ date: 2026-11-24
 - **Clips:** `001_Sideline_KC_2-20_BLT_24` and `002_Endzone_KC_2-20_BLT_24`.
   Clips pair by play description, not by number.
 - **Kits:** KC red, BAL white.
+- **Inputs on this PC:** not yet. See [the re-download checklist](../reference/play-1-inputs.md).
 
 ## Status
 

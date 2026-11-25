@@ -17,7 +17,7 @@ code before relying on it. Today's cameras come from the paint solve
 
 | Date | Spec | Plan |
 | --- | --- | --- |
-| 2026-11-25 | [Pipeline runner](specs/2026-11-25-pipeline-runner-design.md) (draft, for review) | none yet |
+| 2026-11-25 | [Pipeline runner](specs/2026-11-25-pipeline-runner-design.md) (accepted; stage list open) | none yet |
 | 2026-08-17 | [Endzone calibration via static mosaic](specs/2026-08-17-endzone-static-mosaic-calibration-design.md) | [plan](plans/2026-08-17-endzone-static-mosaic-calibration.md) |
 | 2026-07-22 | [Jersey-identity endzone calibration](specs/2026-07-22-jersey-identity-endzone-calibration-design.md) | [plan](plans/2026-07-22-jersey-identity-endzone-calibration.md) |
 | 2026-07-17 | [Cross-camera bootstrap roll fix](specs/2026-07-17-cross-camera-bootstrap-roll-fix-design.md) | [plan](plans/2026-07-17-cross-camera-bootstrap-roll-fix.md) |
