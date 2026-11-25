@@ -295,6 +295,27 @@ def test_solve_fixed_center_resolves_mirrored_labels():
     assert np.linalg.norm(C_rec - C_TRUE) < 0.5
 
 
+def test_mirrored_labels_cannot_fit_a_camera_under_the_field():
+    # The reflection test above relies on "no rigid camera fits the mirrored
+    # labeling". One does: turn the true camera 180 degrees about the X axis.
+    # That sends (x, y, 0) to (x, -y, 0), exactly the mirrored field, and puts
+    # the camera at (x, -y, -z), under the turf. Found 2026-11-24: with a
+    # 200-evaluation anchor, test_cross_cam_calib's mirrored grid candidate
+    # walked to that twin (Z = -45 m), beat the true camera on cost, and the
+    # endzone came out 91 m off. The camera must stay above the field.
+    from scipy.spatial.transform import Rotation
+    ids, fd, f_true, R_true = _synthetic_frames(n_frames=20, noise_px=0.0)
+    flip = np.diag([1.0, -1.0, -1.0])                   # 180 degrees about X
+    fd_mir = js._negate_y(fd)
+    C_twin = flip @ C_TRUE
+    r_twin = {i: Rotation.from_matrix(R_true[i] @ flip).as_rotvec() for i in ids}
+    twin_px = js._median_reproj(ids, fd_mir, C_twin, r_twin, f_true, (W, H))
+    assert twin_px < 1e-6                               # the twin really fits exactly
+    C, _r, _f, _before, _after = js._solve_once(
+        ids, fd_mir, (W, H), C_twin, r_twin, f_true, max_nfev=200)
+    assert C[2] >= js._MIN_CAMERA_Z
+
+
 def test_rotated_view_solves_to_same_camera():
     # Simulate an endzone-style rotated view: rotate every synthetic uv
     # observation 90 deg (as the pipeline does to endzone frames), solve in
