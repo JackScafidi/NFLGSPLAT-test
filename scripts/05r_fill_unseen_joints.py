@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Interpolate the limbs no camera saw, between the poses either side (pose.fill_unseen).
 
-    C:/venvs/smplx312/Scripts/python scripts/05r_fill_unseen_joints.py --play-dir <P> [--dry-run]
+    <smplx312 python> scripts/05r_fill_unseen_joints.py --play-dir <P> [--dry-run]
 
 The fit walks forward in time, so a limb that disappears keeps whatever the previous frame and
 the generic prior gave it -- play 1's motion man swings his arms at 8.9 m/s in his own frame

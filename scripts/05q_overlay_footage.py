@@ -40,6 +40,7 @@ import torch
 
 from nfl_gsplat.pose.forward_kinematics import SMPLX_BODY_PARENTS
 from nfl_gsplat.render.play_timeline import clip_offset, load_play_timeline
+from nfl_gsplat import settings
 
 COLOUR = {"KC": (40, 40, 230), "BAL": (240, 240, 240), "?": (0, 220, 220)}
 KP_EDGES = [(5, 7), (7, 9), (6, 8), (8, 10), (11, 13), (13, 15), (12, 14), (14, 16), (5, 6), (11, 12), (5, 11), (6, 12)]
@@ -103,7 +104,7 @@ def main() -> None:
     ap.add_argument("--step", type=int, default=2)
     ap.add_argument("--video", action="store_true", help="every rendered frame to an mp4")
     ap.add_argument("--stride", type=int, default=2)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--no-keypoints", action="store_true")
     ap.add_argument("--refit", type=Path, default=None, help="a pose cache other than <play-dir>/poses_refit.json")
     ap.add_argument("--gait", action="store_true", help="draw the synthesised running gait (render.gait) instead of the fitted legs")

@@ -24,13 +24,14 @@ from nfl_gsplat.identity.roles import (POSITION_BUILDS, apply_role_builds, assig
                                        inherit_roles, line_of_scrimmage, position_builds, presnap_summary,
                                        roles_from_roster, snap_frame, track_ends, WINDOW_BEFORE, WINDOW_MARGIN)
 from nfl_gsplat.render.play_timeline import ankle_ground, ground_positions
+from nfl_gsplat import settings
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--play-dir", required=True, type=Path)
     ap.add_argument("--offence", required=True, help="the team with the ball (KC, BAL, ...)")
-    ap.add_argument("--rosters", type=Path, default=Path("data/rosters/2024/rosters.parquet"))
+    ap.add_argument("--rosters", type=Path, default=settings.get().data_root / "rosters/2024/rosters.parquet")
     ap.add_argument("--snap", type=int, default=None, help="snap frame (default: found from the motion)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()

@@ -1,4 +1,4 @@
-> **Out of date (2026-11-24).** This describes the old conda + SLURM setup. Error messages in the code still point at its numbered sections, so it stays until those messages and this file are rewritten together (a task in the foundations plan). For this PC's setup see [CLAUDE.md](CLAUDE.md) and [docs/journal/2026-11-24-windows-setup.md](docs/journal/2026-11-24-windows-setup.md).
+> **Out of date (2026-11-24).** This describes the old conda + SLURM setup. Error messages in the code still point at its numbered sections, so it stays until those messages and this file are rewritten together (a task in the foundations plan). For this PC's setup see [CLAUDE.md](CLAUDE.md) and [docs/Journal/2026-11-24-windows-setup.md](docs/Journal/2026-11-24-windows-setup.md).
 
 # Setup
 

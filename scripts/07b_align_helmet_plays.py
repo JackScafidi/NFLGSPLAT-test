@@ -23,13 +23,14 @@ from pathlib import Path
 
 from nfl_gsplat.data.align_video import align_play_plane
 from nfl_gsplat.data.helmet_dataset import load_labels, load_tracking
+from nfl_gsplat import settings
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
     ap.add_argument("--out", type=Path, default=None,
                     help="default: <root>/alignment.json")
     ap.add_argument("--limit", type=int, default=0)

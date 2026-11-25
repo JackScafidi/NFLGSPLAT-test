@@ -31,6 +31,7 @@ import pandas as pd
 from nfl_gsplat.errors import SetupError
 
 from nfl_gsplat.identity.merge_cameras import PlayerIdentity
+from nfl_gsplat import settings
 
 
 def crop_provider(videos):
@@ -55,7 +56,7 @@ def main() -> None:
     ap.add_argument("--season", type=int, default=2024)
     ap.add_argument("--ocr-backend", default="easyocr")
     ap.add_argument("--ocr-top-k", type=int, default=8)
-    ap.add_argument("--rosters", type=Path, default=Path("data/rosters"))
+    ap.add_argument("--rosters", type=Path, default=settings.get().data_root / "rosters")
     ap.add_argument("--week", type=int, default=None,
                     help="use the WEEKLY roster for this week (data/rosters/"
                          "{season}/roster_weekly.parquet, written by "

@@ -22,6 +22,7 @@ import numpy as np
 
 from nfl_gsplat.identity import jersey_cnn, jersey_pretrained
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 
@@ -31,15 +32,15 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--crops", type=Path,
-                    default=Path("data/helmet/jersey_crops_det2.npz"))
+                    default=settings.get().data_root / "helmet/jersey_crops_det2.npz")
     ap.add_argument("--epochs", type=int, default=6)
     ap.add_argument("--batch", type=int, default=128)
     ap.add_argument("--max-train", type=int, default=0,
                     help="subsample the training crops (0 = all)")
     ap.add_argument("--cnn-weights", type=Path,
-                    default=Path("data/weights/jersey_cnn.pt"))
+                    default=settings.get().data_root / "weights/jersey_cnn.pt")
     ap.add_argument("--out", type=Path,
-                    default=Path("data/weights/jersey_resnet18.pt"))
+                    default=settings.get().data_root / "weights/jersey_resnet18.pt")
     args = ap.parse_args()
 
     z = np.load(args.crops, allow_pickle=True)

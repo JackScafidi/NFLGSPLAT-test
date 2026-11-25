@@ -115,3 +115,8 @@ docs/_attachments/
 # Obsidian plugins: commit their settings, not their code (each device installs it)
 docs/.obsidian/plugins/*/*
 !docs/.obsidian/plugins/*/data.json
+
+# This machine's settings (see local.example.yaml and nfl_gsplat/settings.py)
+local.yaml
+# Fathom Starmap's optional wallpaper export (note names and links); never committed
+docs/fathom-wallpaper.html

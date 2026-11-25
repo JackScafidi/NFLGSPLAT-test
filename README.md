@@ -23,7 +23,7 @@ machine. See [docs/STATE.md](docs/STATE.md) and the
    from any angle.
 
 The stage-by-stage description is in
-[docs/reference/pipeline.md](docs/reference/pipeline.md). The pipeline runs as
+[docs/Reference/pipeline.md](docs/Reference/pipeline.md). The pipeline runs as
 `scripts/pipeline_play.sh`, across two Python environments.
 
 ## Set up (Windows, CPU tests)

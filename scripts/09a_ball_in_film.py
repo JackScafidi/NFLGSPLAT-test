@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """The football's flight read off the sideline film, and a check of ball.json against it.
 
-    C:/venvs/smplx312/Scripts/python scripts/09a_ball_in_film.py --play-dir P [--start 500 --end 620] [--sheet OUT.png]
+    <smplx312 python> scripts/09a_ball_in_film.py --play-dir P [--start 500 --end 620] [--sheet OUT.png]
 
 WHY. 08y places the ball from three hand-typed inputs (release, catch, receiver) and for a day on play 1
 (2026-09-18) the receiver was the wrong man; nothing in the pipeline looked at the film for the ball. The

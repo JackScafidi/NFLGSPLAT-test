@@ -18,7 +18,9 @@ from pathlib import Path
 
 import numpy as np
 
-VPOSER_DIR: str = "data/body_models/vposer/V02_05"
+from nfl_gsplat import settings
+
+VPOSER_DIR: str = str(settings.get().body_models / "vposer" / "V02_05")
 NORM_HI: float = 8.0            # a latent norm above this reads as implausible on play 1 (set by the score distribution)
 
 

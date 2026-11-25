@@ -8,8 +8,8 @@ that orbits the formation's centroid. Output is a PNG per frame plus a GIF.
 
 Locally the CUDA backend is unavailable (no toolkit to JIT against), so
 ``--backend cpu`` falls back to the preview splatter over the same loop --
-which is how this script is smoke-tested here before it runs on PACE
-(scripts/render_play.sbatch).
+which is how this script was smoke-tested before it ran on PACE (the job
+file is in archive/slurm/scripts/render_play.sbatch; PACE is no longer used).
 """
 from __future__ import annotations
 

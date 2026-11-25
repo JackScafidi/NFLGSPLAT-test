@@ -48,6 +48,7 @@ from typing import TYPE_CHECKING, Callable, Iterable, Literal
 
 import numpy as np
 
+from nfl_gsplat import settings
 from nfl_gsplat.errors import LHMVRAMError, SetupError
 from nfl_gsplat.identity.registry import REFEREE_UID, EntityType
 from nfl_gsplat.utils.io import write_npz
@@ -85,7 +86,7 @@ class LHMConfig:
     num_body_joints: int = 22        # matches our triangulation output
     sh_degree: int = 0
     repo_dir: Path = Path("third_party/LHM")
-    weights_dir: Path = Path("data/body_models")
+    weights_dir: Path = settings.get().body_models
 
 
 def _free_vram_gb() -> float:

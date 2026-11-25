@@ -28,7 +28,7 @@ SETUP
        (Using your DEFAULT profile is what fails -- Chrome hands the request to
        the already-running process and silently ignores the debugging port.)
          & "C:\Program Files\Google\Chrome\Application\chrome.exe" `
-             --remote-debugging-port=9222 --user-data-dir="C:\Users\sumedh\chrome-nfl-profile"
+             --remote-debugging-port=9222 --user-data-dir="$env:USERPROFILE\chrome-nfl-profile"
     2) Log into pro.nfl.com in THAT window -- once; the profile persists it --
        and open a film-room page, e.g.
          https://pro.nfl.com/film/plays?season=2024&seasonType=REG&weekSlug=WEEK_5
@@ -273,7 +273,7 @@ def main() -> None:
                 f"cannot reach Chrome at {args.cdp} ({exc}).\n"
                 "Close ALL Chrome windows and relaunch with:\n"
                 '  chrome.exe --remote-debugging-port=9222 '
-                '--user-data-dir="C:\\Users\\sumedh\\chrome-nfl-profile"\n'
+                '--user-data-dir="$env:USERPROFILE\\chrome-nfl-profile"\n'
                 "then log in to pro.nfl.com in that window.") from exc
 
         pages = [p for ctx in browser.contexts for p in ctx.pages]

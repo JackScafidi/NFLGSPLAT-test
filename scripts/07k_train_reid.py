@@ -51,6 +51,7 @@ from pathlib import Path
 import numpy as np
 
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 EMBED_D = 128
@@ -142,10 +143,10 @@ def retrieval(emb, keys, groups, *, cross=None, max_per_group=1500, seed=0):
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--crops", type=Path, default=Path("data/helmet/jersey_crops_det2.npz"))
+    ap.add_argument("--crops", type=Path, default=settings.get().data_root / "helmet/jersey_crops_det2.npz")
     ap.add_argument("--epochs", type=int, default=6)
     ap.add_argument("--batch", type=int, default=256)
-    ap.add_argument("--out", type=Path, default=Path("data/weights/reid_resnet18.pt"))
+    ap.add_argument("--out", type=Path, default=settings.get().data_root / "weights/reid_resnet18.pt")
     ap.add_argument("--freeze-trunk", action="store_true",
                     help="train the head only (does fine-tuning forget what ImageNet knew?)")
     args = ap.parse_args()

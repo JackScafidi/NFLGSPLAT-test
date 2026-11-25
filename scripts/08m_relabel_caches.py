@@ -4,7 +4,7 @@
 After 08i re-pairs the camera tracks (new global ids, same boxes) run this
 BEFORE copying tracks_identity.parquet over tracks.parquet:
 
-    C:/venvs/smplx312/Scripts/python scripts/08m_relabel_caches.py --play-dir <P>
+    <smplx312 python> scripts/08m_relabel_caches.py --play-dir <P>
 
 Reads the old ids from tracks.parquet and the new from tracks_identity.parquet,
 rewrites keypoints_2d.parquet, poses_sideline.json and poses_endzone.json with

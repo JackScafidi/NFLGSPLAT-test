@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Fold two tracker ids that hold ONE body into one id (tracking.twins).
 
-    C:/venvs/smplx312/Scripts/python scripts/08o_merge_twins.py --play-dir <P> [--dry-run]
+    <smplx312 python> scripts/08o_merge_twins.py --play-dir <P> [--dry-run]
 
 The detector fires twice on a body in a pile and the render stands two avatars on one
 man. Two ids of one camera are the same body when their ankle rays land on the same spot

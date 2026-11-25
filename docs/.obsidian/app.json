@@ -7,12 +7,12 @@
   "showUnsupportedFiles": false,
   "userIgnoreFilters": [
     "README.md",
-    "archive/README.md",
-    "concepts/README.md",
-    "decisions/README.md",
-    "findings/README.md",
-    "journal/README.md",
-    "plays/README.md",
-    "superpowers/README.md"
+    "Archive/README.md",
+    "Concepts/README.md",
+    "Decisions/README.md",
+    "Findings/README.md",
+    "Journal/README.md",
+    "Plays/README.md",
+    "Superpowers/README.md"
   ]
 }

@@ -30,6 +30,7 @@ from pathlib import Path
 import numpy as np
 
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 BODY_RGB = (0.72, 0.62, 0.55)
@@ -78,7 +79,7 @@ def main() -> None:
     ap.add_argument("--poses-sideline", type=Path, default=None)
     ap.add_argument("--identity", type=Path, default=None)
     ap.add_argument("--appearance", type=Path, default=None, help="05i directory")
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--width", type=int, default=1920)
     ap.add_argument("--height", type=int, default=1080)
     ap.add_argument("--stride", type=int, default=2, help="render every n-th source frame")

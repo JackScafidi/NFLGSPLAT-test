@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Is a badly reprojecting body in the wrong POSE, the wrong PLACE, or facing the wrong WAY?
 
-    C:/venvs/smplx312/Scripts/python scripts/05s_probe_translation.py --play-dir P --ids 9 --frames 250 292
+    <smplx312 python> scripts/05s_probe_translation.py --play-dir P --ids 9 --frames 250 292
 
 WHY. Play 1's motion man reprojects 19-30 px off his own keypoints through frames 258-270 at EVERY
 joint, shoulders at 0.99 confidence included. Three things could do that and they are told apart by
@@ -36,6 +36,7 @@ from nfl_gsplat.pose.forward_kinematics import fk_forward, load_smplx_skeleton
 from nfl_gsplat.pose.fuse_smplx import _pack_params
 from nfl_gsplat.pose.keypoint_filter import reject_outliers
 from nfl_gsplat.render.play_timeline import ankle_ground, clip_offset, ground_positions
+from nfl_gsplat import settings
 
 FPS = 59.94
 
@@ -116,7 +117,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--play-dir", required=True, type=Path)
     ap.add_argument("--refit", type=Path, default=None)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--cam", default="sideline")
     ap.add_argument("--ids", type=int, nargs="+", required=True)
     ap.add_argument("--frames", type=int, nargs=2, default=None, help="print per frame within this range")

@@ -44,6 +44,7 @@ from nfl_gsplat.calibration.joint_views import MAX_GAP_M, ground_points
 from nfl_gsplat.tracking import link3d
 from nfl_gsplat.tracking.detect_track import TRACK_COLUMNS
 from nfl_gsplat.tracking.kits import KIT_MARGIN, KIT_PENALTY_M, KitError, kit_margins, labels_from_margins
+from nfl_gsplat import settings
 
 FIELD_HALF_X_M = 56.0
 FIELD_HALF_Y_M = 26.0
@@ -164,9 +165,9 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--recon", type=Path,
-                    default=Path("C:/Users/sumedh/diag/all22_reconstruction.npz"))
+                    default=settings.get().diag_dir / "all22_reconstruction.npz")
     ap.add_argument("--root", type=Path,
-                    default=Path("data/all22/bal_at_kc_2024_wk1"))
+                    default=settings.get().data_root / "all22/bal_at_kc_2024_wk1")
     ap.add_argument("--sideline", default="001_Sideline_KC_2-20_BLT_24.mp4")
     ap.add_argument("--endzone", default="002_Endzone_KC_2-20_BLT_24.mp4")
     ap.add_argument("--out", type=Path, required=True, help="play-dir to write")

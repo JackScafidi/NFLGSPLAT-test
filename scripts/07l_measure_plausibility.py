@@ -18,7 +18,6 @@ Runs under the smplx venv (PYS): it needs the body model, and the pose caches ar
 from __future__ import annotations
 
 import argparse
-import os
 import pickle
 from pathlib import Path
 
@@ -26,8 +25,7 @@ import numpy as np
 
 from nfl_gsplat.render import motion_rulers as mr
 from nfl_gsplat.render import play_timeline as pt
-
-BODY = "C:/Users/sumedh/NFLGSPLAT/data/body_models"
+from nfl_gsplat import settings
 
 
 def team_of(P: Path) -> dict:
@@ -63,7 +61,7 @@ def main():
     ap.add_argument("--hi", type=int, default=None, help="live window end (default: play_end.json's end, else 460)")
     ap.add_argument("--joints", action="store_true", help="also score the limbs (one forward pass per body-frame)")
     ap.add_argument("--gait", action="store_true", help="score the timeline with the running gait applied (as 05k --gait draws it)")
-    ap.add_argument("--body-models", default=BODY)
+    ap.add_argument("--body-models", default=str(settings.get().body_models))
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     if args.lo is None or args.hi is None:
@@ -145,8 +143,7 @@ def main():
 
     out = args.out
     if out is None:
-        diag = os.environ.get("DIAG", "C:/Users/sumedh/diag")
-        out = Path(diag) / f"{P.name}_{args.tag}_plausibility.json"
+        out = settings.get().diag_dir / f"{P.name}_{args.tag}_plausibility.json"
     Path(out).parent.mkdir(parents=True, exist_ok=True)
     Path(out).write_text(json.dumps(rep, indent=1, default=float))
     print(f"report: {out}")

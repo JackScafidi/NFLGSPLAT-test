@@ -35,6 +35,7 @@ from nfl_gsplat.calibration.field_landmarks import YARD_TO_M
 from nfl_gsplat.calibration.from_helmets import cameras_fixed_centre
 from nfl_gsplat.data.align_video import VIDEO_FPS, helmet_boxes_by_frame
 from nfl_gsplat.data.helmet_dataset import load_labels, load_tracking
+from nfl_gsplat import settings
 
 WIDTH, HEIGHT = 1280, 720
 # Painted every 5 yards, and the sampled span stops short of the sidelines so a
@@ -59,7 +60,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
     ap.add_argument("--game", type=int, default=57583)
     ap.add_argument("--play", type=int, default=82)
     ap.add_argument("--view", default="Sideline", choices=("Sideline", "Endzone"))

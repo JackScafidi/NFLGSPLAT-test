@@ -1,0 +1,19 @@
+# This machine's settings. Copy to local.yaml (git ignores it) and edit.
+# An environment variable beats this file (NFLG_DATA_ROOT and so on); a
+# script's own command-line flag beats both. Relative paths are taken from
+# the repo root. Leave a line empty to use the default.
+# See nfl_gsplat/settings.py. Never put a key or token in this file.
+
+# Footage, rosters and per-play outputs. Default: data/ in the repo.
+data_root:
+
+# SMPL-X, VPoser and model weights. Default: <data_root>/body_models.
+body_models:
+
+# Diagnostic images and reports. Default: outputs/diag/ in the repo.
+diag_dir:
+
+# The two pipeline environments' interpreters. No default: the pipeline stops
+# and says which one is missing. On Windows, the env's Scripts/python.exe.
+python_nflgsplat:   # NumPy 2: calibration, tracking, identity
+python_smplx:       # NumPy 1.26: pose, refit, render

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Fold ids that the FOOTAGE shows to be one man into one id (an explicit twin merge).
 
-    C:/venvs/smplx312/Scripts/python scripts/08z_fold_ids.py --play-dir P --keep 74 --drop 48 75 [--frames LO HI] [--apply]
+    <smplx312 python> scripts/08z_fold_ids.py --play-dir P --keep 74 --drop 48 75 [--frames LO HI] [--apply]
 
 WHY. 08o finds twins by ankle rays, boxes and team; it cannot fold a fragment whose team label is
 wrong. Play 1 (2026-09-18): the receiver, Noah Gray (id 74, jersey 83 read by OCR, sideline track

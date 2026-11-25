@@ -33,6 +33,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from nfl_gsplat.calibration.cameras_io import load_camera_track  # noqa: E402
 from nfl_gsplat.pose.forward_kinematics import fk_forward, load_smplx_skeleton  # noqa: E402
 from nfl_gsplat.pose.fuse_smplx import _pack_params  # noqa: E402
+from nfl_gsplat import settings  # noqa: E402
 
 GROUPS = {"hips/pelvis": [0, 1, 2], "knees": [4, 5], "ankles": [7, 8], "neck/head": [12, 15],
           "shoulders": [16, 17], "elbows": [18, 19], "wrists": [20, 21]}
@@ -53,7 +54,7 @@ def main() -> None:
     ap.add_argument("--refits", required=True, nargs="+", type=Path)
     ap.add_argument("--keypoints", type=Path, default=None)
     ap.add_argument("--identity", type=Path, default=None)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--min-conf", type=float, default=0.5)
     ap.add_argument("--offset", type=int, default=None,
                     help="endzone frame offset (default: from poses_tri.json)")

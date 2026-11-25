@@ -71,12 +71,25 @@ if [ "${ONE_VIEW:-0}" = "1" ] || [ "$EZW" = "0" ]; then ONE_VIEW_FLAG="--one-vie
 # the grep decided the stage's fate and a traceback that contained the
 # word "shift" passed the shift stage (play 2, 2026-09-03).
 set -o pipefail
-export PYTHONIOENCODING=utf-8 PYTHONPATH="C:/Users/sumedh/NFLGSPLAT"
-PYN="C:/venvs/nflgsplat/Scripts/python.exe"; PYS="C:/venvs/smplx312/Scripts/python.exe"
-cd "C:/Users/sumedh/NFLGSPLAT" || exit 1
+# The repo is wherever this script sits (pwd -W: a C:/ path the Windows
+# interpreters understand, under Git Bash). The machine's settings -- the two
+# environments' interpreters and the diagnostics folder -- come from
+# nfl_gsplat/settings.py: environment variables, then local.yaml, then
+# defaults. A relative play-dir is taken from the repo root, as before.
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && { pwd -W 2>/dev/null || pwd; })"
+cd "$REPO" || exit 1
+export PYTHONIOENCODING=utf-8 PYTHONPATH="$REPO"
+BOOT="${NFLG_PY_NFLGSPLAT:-${NFLG_PYTHON:-python}}"   # any interpreter with PyYAML reads the settings
+SETTINGS="$("$BOOT" -m nfl_gsplat.settings --shell)" || {
+  echo "cannot read the machine settings with '$BOOT' (nfl_gsplat/settings.py; set NFLG_PYTHON to an interpreter with PyYAML)"; exit 1; }
+eval "$SETTINGS"
+PYN="${NFLG_PY_NFLGSPLAT:-}"; PYS="${NFLG_PY_SMPLX:-}"
+[ -n "$PYN" ] && [ -f "$PYN" ] || { echo "python_nflgsplat is not set or does not exist ('$PYN'): set it in local.yaml (copy local.example.yaml) or NFLG_PY_NFLGSPLAT"; exit 1; }
+[ -n "$PYS" ] && [ -f "$PYS" ] || { echo "python_smplx is not set or does not exist ('$PYS'): set it in local.yaml (copy local.example.yaml) or NFLG_PY_SMPLX"; exit 1; }
+DIAG="$NFLG_DIAG_DIR"; mkdir -p "$DIAG"
 
 P="$1"; SIDE="$2"; END="$3"; LOS="$4"; shift 4
-DIAG="C:/Users/sumedh/diag"; PLAY="$(basename "$P")"
+PLAY="$(basename "$P")"
 RED="${RED:-KC}"; WHITE="${WHITE:-BAL}"          # the saturated and the white kit (08f, render.uniform)
 OFFENCE="${OFFENCE:-$RED}"                       # the team with the ball: its formation gives the roles (08n)
 SEED_FROM="${SEED_FROM:-}"                       # a solved play-dir of the same game: its sideline mount seeds 08
@@ -112,7 +125,7 @@ fi
 
 if ! done_ export; then
   log "export (08b)"
-  RECON="$P/recon.npz"; [ -f "$RECON" ] || RECON="C:/Users/sumedh/diag/all22_reconstruction.npz"
+  RECON="$P/recon.npz"; [ -f "$RECON" ] || RECON="$DIAG/all22_reconstruction.npz"
   "$PYN" scripts/08b_export_play_dir.py --recon "$RECON" --root "$ROOT" --sideline "$SIDE" --endzone "$END" --out "$P" \
      2>&1 | grep -v "Warning\|warn" | grep -E "cameras:|linked|tracks.parquet" || fail export
   # Every later stage reads the clips from the play-dir (05l, 08e, 05c, 05i,

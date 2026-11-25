@@ -47,6 +47,7 @@ from nfl_gsplat.identity.team_color import (
     split_two_teams_balanced,
 )
 from nfl_gsplat.data.helmet_dataset import load_labels, load_tracking
+from nfl_gsplat import settings
 
 # A helmet box is about one head high. A standing player is roughly 6.5 heads,
 # and about 3 heads wide at the shoulders, so the body box is built from the
@@ -205,7 +206,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--frames", type=int, default=40)
     ap.add_argument("--limit", type=int, default=0)

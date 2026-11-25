@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Train and score the per-play relative-motion classifier (pose.action_class) and predict the one-view frames.
 
-    C:/venvs/smplx312/Scripts/python scripts/09k_action_classes.py --play-dir P --joints J.json [--out P/actions.json]
+    <smplx312 python> scripts/09k_action_classes.py --play-dir P --joints J.json [--out P/actions.json]
 
 Samples: every drawn body-frame in the live window (snap to the down) moving faster than V_MIN, from the joints
 export's pelvis track. Labels: where the endzone has a row for the id on that frame (two views), the class of the

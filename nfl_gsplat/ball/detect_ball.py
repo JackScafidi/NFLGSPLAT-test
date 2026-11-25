@@ -17,6 +17,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from nfl_gsplat import settings
 from nfl_gsplat.errors import SetupError
 from nfl_gsplat.utils.logging import get_logger
 
@@ -30,7 +31,7 @@ BALL_COLUMNS: list[str] = [
 
 @dataclass(frozen=True)
 class BallDetectConfig:
-    weights: str = "data/body_models/ball_yolov8.pt"
+    weights: str = str(settings.get().body_models / "ball_yolov8.pt")
     min_conf: float = 0.25
     device: str = "cuda:0"
     football_class_id: int = 0
