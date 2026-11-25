@@ -3,9 +3,9 @@
 Not used, not tested, not linted. Kept for reference only.
 
 The project runs locally on one PC; Georgia Tech's PACE cluster and SLURM are
-not used ([decision 0001](../../docs/decisions/0001-local-only-no-pace.md)).
+not used ([decision 0001](../../docs/Decisions/0001-local-only-no-pace.md)).
 These files were moved here on 2026-11-25
-([decision 0017](../../docs/decisions/0017-archive-the-slurm-path.md)), keeping
+([decision 0017](../../docs/Decisions/0017-archive-the-slurm-path.md)), keeping
 their original paths under this folder:
 
 | File | Was |

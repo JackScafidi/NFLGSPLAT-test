@@ -20,29 +20,29 @@ DOCS = REPO / "docs"
 
 # folder -> its index note (every other note in the folder must be linked from it)
 INDEXES = {
-    "decisions": "Decisions.md",
-    "journal": "Journal.md",
-    "findings": "Findings.md",
-    "plays": "Plays.md",
-    "concepts": "Concepts.md",
-    "archive": "Archive.md",
-    "agent-context": "MEMORY.md",
-    "superpowers/specs": "../Specs-and-plans.md",
-    "superpowers/plans": "../Specs-and-plans.md",
+    "Decisions": "Decisions.md",
+    "Journal": "Journal.md",
+    "Findings": "Findings.md",
+    "Plays": "Plays.md",
+    "Concepts": "Concepts.md",
+    "Archive": "Archive.md",
+    "Agent-context": "MEMORY.md",
+    "Superpowers/specs": "../Specs-and-plans.md",
+    "Superpowers/plans": "../Specs-and-plans.md",
 }
 
 # folder -> (front matter type, keys every note there must carry)
 FRONT_MATTER = {
-    "decisions": ("decision", ("date", "status")),
-    "journal": ("journal", ("date",)),
-    "plays": ("play", ("date", "status")),
-    "concepts": ("concept", ("updated", "status")),
-    "findings": ("findings", ()),
-    "reference": ("reference", ()),
+    "Decisions": ("decision", ("date", "status")),
+    "Journal": ("journal", ("date",)),
+    "Plays": ("play", ("date", "status")),
+    "Concepts": ("concept", ("updated", "status")),
+    "Findings": ("findings", ()),
+    "Reference": ("reference", ()),
 }
 
 # folders under the current rules, where [[wikilinks]] are not allowed
-NO_WIKILINKS = ("decisions", "journal", "plays", "concepts", "findings", "reference")
+NO_WIKILINKS = ("Decisions", "Journal", "Plays", "Concepts", "Findings", "Reference")
 
 _LINK = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 _FENCE = re.compile(r"^```.*?^```", re.S | re.M)
@@ -81,7 +81,7 @@ def _local_links(path: Path) -> list[str]:
 
 
 _LINKED_FILES = [*_all_notes(), REPO / "CLAUDE.md", REPO / "README.md",
-                 *sorted((REPO / "archive").rglob("README.md"))]
+                 *sorted((REPO / "archive").rglob("README.md"))]     # the repo-root code archive
 
 
 @pytest.mark.parametrize("path", _LINKED_FILES, ids=lambda p: p.relative_to(REPO).as_posix())
@@ -124,11 +124,11 @@ def test_current_notes_use_markdown_links_not_wikilinks(folder):
 
 def test_decisions_are_numbered_and_the_index_agrees_with_each_note():
     rows = {}
-    for line in (DOCS / "decisions" / "Decisions.md").read_text(encoding="utf-8").splitlines():
+    for line in (DOCS / "Decisions" / "Decisions.md").read_text(encoding="utf-8").splitlines():
         m = re.match(r"\| \[(\d{4})\]\(([^)]+)\) \| ([^|]+) \| ([^|]+) \|", line)
         if m:
             rows[m.group(1)] = (m.group(2), m.group(4).strip())
-    notes = [p for p in _notes("decisions") if p.name != "Decisions.md"]
+    notes = [p for p in _notes("Decisions") if p.name != "Decisions.md"]
     numbers = [p.name[:4] for p in notes]
     assert numbers == [f"{i:04d}" for i in range(1, len(notes) + 1)], "decision numbers have a gap or a repeat"
     for p in notes:
@@ -144,7 +144,7 @@ def test_decisions_are_numbered_and_the_index_agrees_with_each_note():
 
 
 def test_journal_names_carry_their_date():
-    for p in _notes("journal"):
+    for p in _notes("Journal"):
         if p.name == "Journal.md":
             continue
         assert re.match(r"\d{4}-\d{2}-\d{2}-[a-z0-9-]+\.md$", p.name), f"{p.name}: name it YYYY-MM-DD-short-title.md"
@@ -155,5 +155,5 @@ def test_every_readme_pointer_is_hidden_from_obsidian():
     ignored = set(json.loads((DOCS / ".obsidian" / "app.json").read_text(encoding="utf-8"))["userIgnoreFilters"])
     readmes = {p.relative_to(DOCS).as_posix() for p in DOCS.rglob("README.md") if ".obsidian" not in p.parts}
     assert readmes <= ignored, f"add to userIgnoreFilters in docs/.obsidian/app.json: {sorted(readmes - ignored)}"
-    for folder in ("decisions", "journal", "findings", "plays", "concepts", "archive"):
+    for folder in ("Decisions", "Journal", "Findings", "Plays", "Concepts", "Archive"):
         assert (DOCS / folder / "README.md").is_file(), f"docs/{folder}/ needs its one-line README.md pointer"

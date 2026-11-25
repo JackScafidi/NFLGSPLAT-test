@@ -19,25 +19,25 @@ location on every frame out.
 
 | Object | Located today? | Where the work is |
 | --- | --- | --- |
-| [Player body (root)](concepts/player-body.md) | Yes. Two-camera triangulation where both cameras see the player; one camera's box bottom otherwise. | [Placement](findings/placement.md), [tracking and pairing](findings/tracking-and-pairing.md) |
-| [Player head](concepts/head.md) | Yes, as a SMPL-X joint; drives the viewer's first-person view | [Render and viewer](findings/render-and-viewer.md) |
-| [Player hands](concepts/hands.md) | Wrists only; hand poses are zero | [Pose](findings/pose.md) |
-| [Player feet](concepts/feet.md) | Ankles only, plus a foot-lock rule | [Pose](findings/pose.md), [placement](findings/placement.md) |
-| [Ball](concepts/ball.md) | Placed from the bodies, with release and catch frames typed in by hand | [Ball and play events](findings/ball-and-play-events.md) |
-| [Referees](concepts/referees.md) | Not tracked as separate bodies; one generic avatar | [Decision 0008](decisions/0008-officials-not-by-shirt-stripes.md) |
-| [Player identity](concepts/identity.md) | Team from kit colour, jersey and roster name; ID folds made by hand on the film | [Identity and teams](findings/identity-and-teams.md) |
+| [Player body (root)](Concepts/player-body.md) | Yes. Two-camera triangulation where both cameras see the player; one camera's box bottom otherwise. | [Placement](Findings/placement.md), [tracking and pairing](Findings/tracking-and-pairing.md) |
+| [Player head](Concepts/head.md) | Yes, as a SMPL-X joint; drives the viewer's first-person view | [Render and viewer](Findings/render-and-viewer.md) |
+| [Player hands](Concepts/hands.md) | Wrists only; hand poses are zero | [Pose](Findings/pose.md) |
+| [Player feet](Concepts/feet.md) | Ankles only, plus a foot-lock rule | [Pose](Findings/pose.md), [placement](Findings/placement.md) |
+| [Ball](Concepts/ball.md) | Placed from the bodies, with release and catch frames typed in by hand | [Ball and play events](Findings/ball-and-play-events.md) |
+| [Referees](Concepts/referees.md) | Not tracked as separate bodies; one generic avatar | [Decision 0008](Decisions/0008-officials-not-by-shirt-stripes.md) |
+| [Player identity](Concepts/identity.md) | Team from kit colour, jersey and roster name; ID folds made by hand on the film | [Identity and teams](Findings/identity-and-teams.md) |
 
 | Layer | State |
 | --- | --- |
-| 1, extraction ([play data](concepts/play-data.md)) | Works for play 1 through `scripts/pipeline_play.sh` (about 30 stages, two Python environments). Machine paths and interpreters now come from `local.yaml` ([0014](decisions/0014-machine-settings-layer.md)); the two environments aren't built on this PC yet. No single play-data output. |
-| 4, viewing ([render and viewer](concepts/render-and-viewer.md)) | 1080p render (`scripts/05k_render_hifi.py`) and the browser viewer (`viewer/play_room.html`, hardcoded to play 1). |
-| 2 and 3 | Not started, by decision ([0002](decisions/0002-layers-1-and-4-first.md)). |
+| 1, extraction ([play data](Concepts/play-data.md)) | Works for play 1 through `scripts/pipeline_play.sh` (about 30 stages, two Python environments). Machine paths and interpreters now come from `local.yaml` ([0014](Decisions/0014-machine-settings-layer.md)); the two environments aren't built on this PC yet. No single play-data output. |
+| 4, viewing ([render and viewer](Concepts/render-and-viewer.md)) | 1080p render (`scripts/05k_render_hifi.py`) and the browser viewer (`viewer/play_room.html`, hardcoded to play 1). |
+| 2 and 3 | Not started, by decision ([0002](Decisions/0002-layers-1-and-4-first.md)). |
 
 ## Play 1 at v122 (2026-09-26)
 
-Measured on the live tables (from the [last entry](findings/pipeline-and-versions.md)):
+Measured on the live tables (from the [last entry](Findings/pipeline-and-versions.md)):
 
-- **[Census](concepts/census.md)** (bodies per team against 11): 0.00 from snap to whistle, every
+- **[Census](Concepts/census.md)** (bodies per team against 11): 0.00 from snap to whistle, every
   frame 11 on 11. Clip frames at 11 on 11: 390 of 401.
 - **Steps** 20 / 0, **hops** 0, **surges** 4.3 %.
 
@@ -53,7 +53,7 @@ Known defects, in the order a viewer would notice them:
 
 - Three private claude.ai artifacts owned by the previous developer: a
   showcase, the Film Room viewer and a write-up (links in the last
-  [pipeline-and-versions](findings/pipeline-and-versions.md) entry). They are
+  [pipeline-and-versions](Findings/pipeline-and-versions.md) entry). They are
   likely not visible from this account.
 - Videos in `C:/Users/sumedh/diag/` on the previous machine. None are on this PC.
 
@@ -63,7 +63,7 @@ The [Foundations plan](https://claude.ai/artifact/K7SoiabWPzAFs2HgP2Ekpz):
 foundations, then the play data contract, measurement, every object, breadth.
 
 First blocker: play 1's inputs aren't on this PC. They're being downloaded
-again; see [the checklist](reference/play-1-inputs.md).
+again; see [the checklist](Reference/play-1-inputs.md).
 
 ## Open items as listed on 2026-09-10 (word for word)
 

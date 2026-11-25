@@ -15,7 +15,7 @@ Start page for notes: [docs/Home.md](docs/Home.md).
 ## Layout
 
 - `nfl_gsplat/`: the Python package. `nfl_gsplat/pipeline/` is the new runner's
-  core (no stages declared yet; see its spec in `docs/superpowers/specs/`).
+  core (no stages declared yet; see its spec in `docs/Superpowers/specs/`).
 - `scripts/`: numbered pipeline stages and tools. `scripts/pipeline_play.sh` is
   the working pipeline; the README's conda/SLURM path is out of date.
 - `tests/`: CPU unit tests.
@@ -63,18 +63,18 @@ pyright-lsp needs the `pyright` language server on PATH
 
 | What | Where | Name |
 | --- | --- | --- |
-| A decision (what was chosen, why, what it rules out) | `docs/decisions/` | `NNNN-short-title.md`, next free number |
-| A session's work or a finding | `docs/journal/` | `YYYY-MM-DD-short-title.md` |
-| Facts about one play | `docs/plays/` | `<away>-at-<home>-<season>-wk<N>-play-NNN.md` |
-| A design spec, and its implementation plan | `docs/superpowers/specs/`, `docs/superpowers/plans/` | `YYYY-MM-DD-topic(-design).md` |
-| One durable fact for future sessions | `docs/agent-context/` | add a line to `MEMORY.md` |
+| A decision (what was chosen, why, what it rules out) | `docs/Decisions/` | `NNNN-short-title.md`, next free number |
+| A session's work or a finding | `docs/Journal/` | `YYYY-MM-DD-short-title.md` |
+| Facts about one play | `docs/Plays/` | `<away>-at-<home>-<season>-wk<N>-play-NNN.md` |
+| A design spec, and its implementation plan | `docs/Superpowers/specs/`, `docs/Superpowers/plans/` | `YYYY-MM-DD-topic(-design).md` |
+| One durable fact for future sessions | `docs/Agent-context/` | add a line to `MEMORY.md` |
 
-- Start each note from `docs/templates/`, with front matter (`type`, `date`, and
+- Start each note from `docs/Templates/`, with front matter (`type`, `date`, and
   `status` where it applies).
 - Link every new finding, decision, play and journal note to the concepts it
-  touches (`docs/concepts/`: goal objects, pipeline stages, measures) in a
+  touches (`docs/Concepts/`: goal objects, pipeline stages, measures) in a
   "Related" section. When a concept's state changes, update its "Today"
-  section. A new concept needs a note from `templates/concept.md` and a row in
+  section. A new concept needs a note from `Templates/concept.md` and a row in
   `Concepts.md`.
 - Add every new note to its folder's index, which is named after its section
   so the Obsidian graph reads clearly: `Decisions.md`, `Findings.md`,

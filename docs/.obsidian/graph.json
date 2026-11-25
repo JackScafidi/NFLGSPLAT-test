@@ -1,6 +1,6 @@
 {
   "collapse-filter": false,
-  "search": "-path:archive -path:templates",
+  "search": "-path:Archive -path:Templates",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": true,
@@ -8,7 +8,7 @@
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "path:concepts",
+      "query": "path:Concepts",
       "color": {
         "a": 1,
         "rgb": 15909198
@@ -22,35 +22,35 @@
       }
     },
     {
-      "query": "path:findings",
+      "query": "path:Findings",
       "color": {
         "a": 1,
         "rgb": 5148658
       }
     },
     {
-      "query": "path:decisions",
+      "query": "path:Decisions",
       "color": {
         "a": 1,
         "rgb": 5025616
       }
     },
     {
-      "query": "path:plays",
+      "query": "path:Plays",
       "color": {
         "a": 1,
         "rgb": 15895608
       }
     },
     {
-      "query": "path:journal",
+      "query": "path:Journal",
       "color": {
         "a": 1,
         "rgb": 10250974
       }
     },
     {
-      "query": "path:reference OR path:superpowers OR path:agent-context",
+      "query": "path:Reference OR path:Superpowers OR path:Agent-context",
       "color": {
         "a": 1,
         "rgb": 10395294
