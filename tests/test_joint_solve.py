@@ -226,6 +226,34 @@ def test_self_audit_drops_identity_shifted_frame():
     assert np.linalg.norm(C_rec - C_TRUE) < 0.5          # unpoisoned
 
 
+def test_anchor_candidate_converges_within_its_budget(monkeypatch):
+    # The anchor's early-accept must rest on a CONVERGED solve. Cut off at
+    # max_nfev (status 0), where it stops depends on floating-point details:
+    # the scenario above early-accepted on Windows (centre 0.10 m off) but
+    # missed the gate on Linux CI and fell back to the grid (0.53 m off).
+    import scipy.optimize as so
+    from nfl_gsplat.calibration.field_landmarks import YARD_LINE_SPACING_M
+    from nfl_gsplat.calibration.joint_solve import solve_fixed_center
+    statuses = []
+    real = so.least_squares
+
+    def spy(*a, **kw):
+        sol = real(*a, **kw)
+        if kw.get("method") == "trf":
+            statuses.append(sol.status)
+        return sol
+    monkeypatch.setattr(so, "least_squares", spy)
+    ids, fd, f_true, R_true = _synthetic_frames(n_frames=40, noise_px=0.3)
+    world, uv = fd[17]
+    world = world.copy(); world[:, 0] += YARD_LINE_SPACING_M
+    fd[17] = (world, uv)
+    solve_fixed_center(
+        corrs_by_frame=None, image_size=(W, H),
+        init_results=_init_results_from_truth(ids, f_true, R_true, 40, jitter=1.0),
+        _frame_data_override=fd)
+    assert statuses[0] != 0                              # the anchor solve converged
+
+
 def test_self_audit_all_frames_bad_fails_loud(monkeypatch):
     from nfl_gsplat.calibration import joint_solve as js
     from nfl_gsplat.errors import CalibrationError
@@ -265,6 +293,27 @@ def test_solve_fixed_center_resolves_mirrored_labels():
     assert len(solved) >= 45
     C_rec = solved[0].pose.center_world()
     assert np.linalg.norm(C_rec - C_TRUE) < 0.5
+
+
+def test_mirrored_labels_cannot_fit_a_camera_under_the_field():
+    # The reflection test above relies on "no rigid camera fits the mirrored
+    # labeling". One does: turn the true camera 180 degrees about the X axis.
+    # That sends (x, y, 0) to (x, -y, 0), exactly the mirrored field, and puts
+    # the camera at (x, -y, -z), under the turf. Found 2026-11-24: with a
+    # 200-evaluation anchor, test_cross_cam_calib's mirrored grid candidate
+    # walked to that twin (Z = -45 m), beat the true camera on cost, and the
+    # endzone came out 91 m off. The camera must stay above the field.
+    from scipy.spatial.transform import Rotation
+    ids, fd, f_true, R_true = _synthetic_frames(n_frames=20, noise_px=0.0)
+    flip = np.diag([1.0, -1.0, -1.0])                   # 180 degrees about X
+    fd_mir = js._negate_y(fd)
+    C_twin = flip @ C_TRUE
+    r_twin = {i: Rotation.from_matrix(R_true[i] @ flip).as_rotvec() for i in ids}
+    twin_px = js._median_reproj(ids, fd_mir, C_twin, r_twin, f_true, (W, H))
+    assert twin_px < 1e-6                               # the twin really fits exactly
+    C, _r, _f, _before, _after = js._solve_once(
+        ids, fd_mir, (W, H), C_twin, r_twin, f_true, max_nfev=200)
+    assert C[2] >= js._MIN_CAMERA_Z
 
 
 def test_rotated_view_solves_to_same_camera():

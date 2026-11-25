@@ -17,7 +17,9 @@ Solve orchestration (design addendum 2026-07-06, validated on real footage):
    rotation + span-derived focal.
 2. Reflection auto-resolve — the fused left/right hash convention is
    camera-side dependent; a mirrored labeling keeps every homography perfect
-   but is a reflection no rigid camera fits. Both labelings (as-is / world-Y
+   but is a reflection no rigid camera ABOVE the field fits (one under the
+   field does, which is why the solve bounds the camera's height: see
+   _MIN_CAMERA_Z). Both labelings (as-is / world-Y
    negated) are scored on a frame subsample; the lower-cost one wins. A
    mirrored win negates world Y for the rest of the solve (the field is
    Y-symmetric, so results stay in the TRUE world frame) and is reported.
@@ -64,13 +66,24 @@ _XS_R = 0.01
 _XS_F = 1000.0
 
 _SHORT_NFEV = 12         # per-candidate scoring solve (cost discrimination, not convergence)
-_ANCHOR_NFEV = 50        # the plausible-anchor candidate gets a real convergence budget:
+_ANCHOR_NFEV = 200       # the plausible-anchor candidate gets a real convergence budget:
                          # it is a trusted physical prior and, when it early-accepts, the
-                         # grid is never scored
+                         # grid is never scored. 50 was too few: the 40-frame synthetic
+                         # anchor needs 75-80 evaluations (2026-11-24), and cut off at 50
+                         # its early-accept turned on floating-point details (Windows
+                         # accepted, Linux CI fell back to the grid, centre 0.10 vs 0.53 m).
+                         # Real footage has no anchor, so this costs nothing there.
 _STAGE_A_NFEV = 1000     # subsample deep solve
 _STAGE_B_NFEV = 600      # full warm-started solve
 _RESCUE_NFEV = 300       # per-frame fixed-C LM refit
 _EARLY_ACCEPT_PX = 2.0   # a candidate this good on the subsample ends the search
+_MIN_CAMERA_Z = 1.0      # lower bound on the camera's height (m). Without it the
+                         # mirrored labeling has an exact rigid fit: the true camera
+                         # turned 180 degrees about X, sitting at (x, -y, -z) under
+                         # the field. Measured 2026-11-24 on test_cross_cam_calib's
+                         # synthetic: a mirrored grid candidate walked to Z = -45 m,
+                         # beat the true camera on cost, and the endzone came out
+                         # 91 m off.
 
 FrameData = tuple[np.ndarray, np.ndarray]     # (world (N,3), uv (N,2))
 
@@ -299,6 +312,7 @@ def _solve_once(frame_ids, frame_data, image_size, C0, r0, f0, *, max_nfev=200, 
     x0 = pack_params(C0, r0, f0, frame_ids)
     lo = np.full_like(x0, -np.inf)
     hi = np.full_like(x0, np.inf)
+    lo[2] = _MIN_CAMERA_Z           # the camera is above the field (see _MIN_CAMERA_Z)
     xs = np.ones_like(x0)
     xs[:3] = _XS_C
     for k in range(len(frame_ids)):
