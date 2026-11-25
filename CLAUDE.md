@@ -32,6 +32,19 @@ ruff check nfl_gsplat tests scripts
 
 ffmpeg must be on PATH, or the `tests/test_field.py` extraction tests fail.
 
+## Plugins
+
+`.claude/settings.json` enables the project's Claude Code plugins, so any
+machine that opens the repo is offered the same set:
+
+- From `claude-plugins-official`: context7, github, claude-md-management,
+  commit-commands, feature-dev, hookify, pyright-lsp, superpowers.
+- From `knowledge-work-plugins`: data, design, engineering.
+
+pyright-lsp needs the `pyright` language server on PATH
+(`pip install pyright` in the venv). Personal overrides go in
+`.claude/settings.local.json`, which git ignores.
+
 ## Notes go in the docs/ vault
 
 | What | Where | Name |
