@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Learn which way a man moves relative to his chest from REAL tracking (measured orientation), then apply it to a play.
 
-    C:/venvs/nflgsplat/Scripts/python scripts/09l_facing_prior.py --bdb data/tracking/input_2023_w01.csv \
+    <nflgsplat python> scripts/09l_facing_prior.py --bdb data/tracking/input_2023_w01.csv \
         --joints J.json --play-dir P --roles roles.json [--model-out data/models/facing_prior.pt]
 
 WHY. The per-play classifier trained on the play's own two-view fits did not generalise (09k: 37-42 % held out by

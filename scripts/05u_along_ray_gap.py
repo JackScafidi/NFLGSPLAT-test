@@ -48,6 +48,7 @@ from nfl_gsplat.pose.forward_kinematics import fk_forward, load_smplx_skeleton
 from nfl_gsplat.pose.fuse_smplx import _pack_params
 from nfl_gsplat.pose.keypoint_filter import reject_outliers
 from nfl_gsplat.render.play_timeline import clip_offset
+from nfl_gsplat import settings
 
 ANKLE_JOINTS = (15, 16)
 ANKLE_CONF = 0.5
@@ -88,7 +89,7 @@ def main() -> None:
     ap.add_argument("--play-dir", required=True, type=Path)
     ap.add_argument("--refit", required=True, type=Path, nargs="+",
                     help="one cache to measure, or two to compare (the second is the change)")
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--cam", default="sideline")
     ap.add_argument("--min-frames", type=int, default=15)
     args = ap.parse_args()

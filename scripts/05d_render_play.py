@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from nfl_gsplat.calibration.cameras_io import load_camera_track
 from nfl_gsplat.errors import SetupError
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 
@@ -65,7 +66,7 @@ def main() -> None:
     ap.add_argument("--poses", required=True, type=Path)
     ap.add_argument("--identity", required=True, type=Path)
     ap.add_argument("--out-dir", required=True, type=Path)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--field-res-m", type=float, default=0.15)
     ap.add_argument("--width", type=int, default=960)
     ap.add_argument("--height", type=int, default=540)

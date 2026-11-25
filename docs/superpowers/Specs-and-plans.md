@@ -1,21 +1,23 @@
 ---
 type: index
-updated: 2026-11-24
+updated: 2026-11-25
 ---
 
 # Specs and plans
 
 Design specs (`specs/`) and their implementation plans (`plans/`), written with
-the superpowers workflow from June to August 2026. All 15 are about the data
-layout and camera calibration, before the working pipeline of September.
+the superpowers workflow. The 15 from June to August 2026 are about the data
+layout and camera calibration, before the working pipeline of September. The
+November drafts are newer and say so in their status.
 
-Every spec still says "Approved (design); implementation plan pending", though
+Each of the 15 still says "Approved (design); implementation plan pending", though
 each has a plan. Those lines were never updated, so check a spec against the
 code before relying on it. Today's cameras come from the paint solve
 (`scripts/08`, `08e`, `08l`; see [the pipeline](../reference/pipeline.md)).
 
 | Date | Spec | Plan |
 | --- | --- | --- |
+| 2026-11-25 | [Pipeline runner](specs/2026-11-25-pipeline-runner-design.md) (draft, for review) | none yet |
 | 2026-08-17 | [Endzone calibration via static mosaic](specs/2026-08-17-endzone-static-mosaic-calibration-design.md) | [plan](plans/2026-08-17-endzone-static-mosaic-calibration.md) |
 | 2026-07-22 | [Jersey-identity endzone calibration](specs/2026-07-22-jersey-identity-endzone-calibration-design.md) | [plan](plans/2026-07-22-jersey-identity-endzone-calibration.md) |
 | 2026-07-17 | [Cross-camera bootstrap roll fix](specs/2026-07-17-cross-camera-bootstrap-roll-fix-design.md) | [plan](plans/2026-07-17-cross-camera-bootstrap-roll-fix.md) |

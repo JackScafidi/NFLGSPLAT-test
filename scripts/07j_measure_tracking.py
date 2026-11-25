@@ -55,6 +55,7 @@ from nfl_gsplat.errors import CalibrationError
 from nfl_gsplat.identity.team_color import dominant_jersey_color, split_two_teams_balanced
 from nfl_gsplat.tracking import link3d, reid
 from nfl_gsplat.tracking.detect_track import TrackingConfig, detect_and_track
+from nfl_gsplat import settings
 
 VIDEO_FPS = 59.94
 WIDTH, HEIGHT = 1280, 720
@@ -382,7 +383,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
     ap.add_argument("--alignment", type=Path, default=None)
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--limit", type=int, default=5)

@@ -42,6 +42,7 @@ from nfl_gsplat.calibration.from_helmets import cameras_fixed_centre
 from nfl_gsplat.data.align_video import VIDEO_FPS, helmet_boxes_by_frame
 from nfl_gsplat.data.helmet_dataset import load_labels, load_tracking
 from nfl_gsplat.errors import CalibrationError
+from nfl_gsplat import settings
 
 WIDTH, HEIGHT = 1280, 720
 
@@ -145,7 +146,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
     ap.add_argument("--alignment", type=Path, default=None)
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--stride", type=int, default=10)

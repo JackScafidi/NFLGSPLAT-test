@@ -24,8 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from nfl_gsplat.calibration.cameras_io import load_camera_track  # noqa: E402
 from nfl_gsplat.render.play_timeline import _teams, box_ground, clip_offset  # noqa: E402
 from nfl_gsplat.tracking import contact_links as cl  # noqa: E402
-
-PYS = "C:/venvs/smplx312/Scripts/python.exe"
+from nfl_gsplat import settings  # noqa: E402
 
 
 def main() -> None:
@@ -71,9 +70,10 @@ def main() -> None:
     if not a.apply:
         print("dry run. Re-run with --apply.")
         return
+    pys = str(settings.get().python("smplx"))      # 08za / 08z rewrite numpy-1 pickles
     for lk in chosen:
         for cmd in cl.fold_commands(lk, str(P)):
-            subprocess.run([PYS] + cmd, check=True)
+            subprocess.run([pys] + cmd, check=True)
 
 
 if __name__ == "__main__":

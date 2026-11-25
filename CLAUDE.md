@@ -14,7 +14,8 @@ Start page for notes: [docs/Home.md](docs/Home.md).
 
 ## Layout
 
-- `nfl_gsplat/`: the Python package.
+- `nfl_gsplat/`: the Python package. `nfl_gsplat/pipeline/` is the new runner's
+  core (no stages declared yet; see its spec in `docs/superpowers/specs/`).
 - `scripts/`: numbered pipeline stages and tools. `scripts/pipeline_play.sh` is
   the working pipeline; the README's conda/SLURM path is out of date.
 - `tests/`: CPU unit tests.
@@ -31,6 +32,19 @@ ruff check nfl_gsplat tests scripts
 ```
 
 ffmpeg must be on PATH, or the `tests/test_field.py` extraction tests fail.
+
+## Machine settings
+
+Paths and interpreters for this machine come from `nfl_gsplat/settings.py`:
+an environment variable (`NFLG_DATA_ROOT`, `NFLG_BODY_MODELS`,
+`NFLG_DIAG_DIR`, `NFLG_PY_NFLGSPLAT`, `NFLG_PY_SMPLX`), then the gitignored
+`local.yaml` at the repo root (copy `local.example.yaml`), then defaults inside
+the repo. `python -m nfl_gsplat.settings` prints what's in effect.
+
+- Never write a machine path into code. Use `settings.get()`, or add a setting.
+- Relative paths are taken from the repo root, never the working folder.
+- Secrets never go in `local.yaml`. Keys stay in environment variables or the
+  tool's own location (`~/.kaggle`).
 
 ## Plugins
 

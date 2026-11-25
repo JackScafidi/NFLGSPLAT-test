@@ -33,6 +33,7 @@ from nfl_gsplat.pose.forward_kinematics import load_smplx_skeleton
 from nfl_gsplat.pose.fuse_smplx import SMPLXFitConfig
 from nfl_gsplat.pose.refit_fused import refit_player, render_blob
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 MIN_FRAMES = 4
@@ -46,7 +47,7 @@ def main() -> None:
     ap.add_argument("--poses", required=True, type=Path,
                     help="the sideline pose cache (betas, first-frame body pose)")
     ap.add_argument("--identity", required=True, type=Path)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--max-iter", type=int, default=50)
     ap.add_argument("--min-valid-joints", type=int, default=10,

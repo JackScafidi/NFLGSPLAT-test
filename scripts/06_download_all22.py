@@ -33,7 +33,7 @@ USAGE
    open -- a distinct --user-data-dir is an independent browser process, and it
    is only the DEFAULT profile that silently ignores the debugging port:
      & "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" `
-         --remote-debugging-port=9222 --user-data-dir="C:\\Users\\sumedh\\chrome-nfl-profile"
+         --remote-debugging-port=9222 --user-data-dir="$env:USERPROFILE\\chrome-nfl-profile"
 2) Log into pro.nfl.com in it; open a game's film room:
      https://pro.nfl.com/film/plays?season=2025&seasonType=REG&weekSlug=WEEK_4&gameId=<FAPI_GAME_ID>
 3) python scripts/06_download_all22.py --out data/all22/sea_at_az_wk4

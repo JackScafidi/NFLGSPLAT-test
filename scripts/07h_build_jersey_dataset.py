@@ -25,6 +25,7 @@ from pathlib import Path
 import numpy as np
 
 from nfl_gsplat.data.helmet_dataset import load_labels
+from nfl_gsplat import settings
 
 # The band of the synthesised body box that holds the number, and the size the
 # crops are stored at. 64x64 is well above the ~20 px a distant jersey occupies,
@@ -113,8 +114,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--root", type=Path, default=Path("data/helmet"))
-    ap.add_argument("--out", type=Path, default=Path("data/helmet/jersey_crops.npz"))
+    ap.add_argument("--root", type=Path, default=settings.get().data_root / "helmet")
+    ap.add_argument("--out", type=Path, default=settings.get().data_root / "helmet/jersey_crops.npz")
     ap.add_argument("--frames-per-video", type=int, default=40)
     ap.add_argument("--holdout-frac", type=float, default=0.25)
     ap.add_argument("--limit-videos", type=int, default=0)

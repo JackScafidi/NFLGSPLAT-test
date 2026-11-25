@@ -54,6 +54,7 @@ from nfl_gsplat.calibration.from_players import feet_of, solve_second_view
 from nfl_gsplat.calibration.joint_views import match_count
 from nfl_gsplat.calibration.player_scale import implied_heights
 from nfl_gsplat.errors import CalibrationError
+from nfl_gsplat import settings
 
 EXPECTED_PLAYER_M = 1.85
 FIELD_HALF_X_M = 56.0
@@ -280,7 +281,7 @@ def main() -> None:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--root", type=Path,
-                    default=Path("data/all22/bal_at_kc_2024_wk1"))
+                    default=settings.get().data_root / "all22/bal_at_kc_2024_wk1")
     ap.add_argument("--sideline", default="001_Sideline_KC_2-20_BLT_24.mp4")
     ap.add_argument("--endzone", default="002_Endzone_KC_2-20_BLT_24.mp4")
     ap.add_argument("--attempts", type=int, default=3)
@@ -319,7 +320,7 @@ def main() -> None:
                     help="skip the second endzone solve at the mirrored mount and the "
                          "numeral read that decides which end the camera is behind")
     ap.add_argument("--out", type=Path,
-                    default=Path("C:/Users/sumedh/diag/all22_reconstruction.npz"))
+                    default=settings.get().diag_dir / "all22_reconstruction.npz")
     args = ap.parse_args()
 
     from ultralytics import YOLO

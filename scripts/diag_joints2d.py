@@ -15,11 +15,12 @@ aggregate statistics.
 """
 import pickle
 import sys
+from pathlib import Path
 
 import cv2
 import numpy as np
 
-sys.path.insert(0, r"C:/Users/sumedh/NFLGSPLAT")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from nfl_gsplat.utils.video import iter_frames
 
 PD_ = r"data/2025/week_04/SEA_at_AZ/play_001"

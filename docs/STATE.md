@@ -1,6 +1,6 @@
 ---
 type: state
-date: 2026-11-24
+date: 2026-11-25
 as-of-work: 2026-09-26 (play 1, v122)
 ---
 
@@ -29,7 +29,7 @@ location on every frame out.
 
 | Layer | State |
 | --- | --- |
-| 1, extraction ([play data](concepts/play-data.md)) | Works for play 1 through `scripts/pipeline_play.sh` (about 30 stages, two Python environments, paths to the old machine). No single play-data output. |
+| 1, extraction ([play data](concepts/play-data.md)) | Works for play 1 through `scripts/pipeline_play.sh` (about 30 stages, two Python environments). Machine paths and interpreters now come from `local.yaml` ([0014](decisions/0014-machine-settings-layer.md)); the two environments aren't built on this PC yet. No single play-data output. |
 | 4, viewing ([render and viewer](concepts/render-and-viewer.md)) | 1080p render (`scripts/05k_render_hifi.py`) and the browser viewer (`viewer/play_room.html`, hardcoded to play 1). |
 | 2 and 3 | Not started, by decision ([0002](decisions/0002-layers-1-and-4-first.md)). |
 

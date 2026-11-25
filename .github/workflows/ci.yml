@@ -14,9 +14,18 @@ concurrency:
 
 jobs:
   cpu-tests:
-    name: CPU tests (smoke + unit)
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+    name: CPU tests (${{ matrix.os }})
+    # Windows too: the pipeline's machine is a Windows PC, and Linux alone has
+    # missed platform-dependent results (the joint solve, 2026-11-24).
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: bash      # Git Bash on Windows, so every step reads the same
     steps:
       - uses: actions/checkout@v4
 
@@ -27,9 +36,14 @@ jobs:
           cache: pip
 
       - name: Install system libs (opencv-python; ffmpeg for tests/test_field.py)
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0 ffmpeg
+
+      - name: Install ffmpeg (tests/test_field.py)
+        if: runner.os == 'Windows'
+        run: choco install ffmpeg -y --no-progress
 
       - name: Install package + test extras
         run: |
@@ -58,7 +72,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-results
+          name: pytest-results-${{ matrix.os }}
           path: pytest.xml
 
   lint:

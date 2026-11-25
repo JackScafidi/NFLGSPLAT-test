@@ -40,6 +40,7 @@ import numpy as np
 from nfl_gsplat.calibration.cameras_io import load_camera_track
 from nfl_gsplat.errors import SetupError
 from nfl_gsplat.utils.logging import get_logger
+from nfl_gsplat import settings
 
 _LOG = get_logger(__name__)
 MIN_FRAMES = 8
@@ -80,7 +81,7 @@ def main() -> None:
     ap.add_argument("--play-dir", required=True, type=Path)
     ap.add_argument("--poses", required=True, type=Path, help="05f world-mode cache")
     ap.add_argument("--out-dir", required=True, type=Path)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--iters", type=int, default=120)
     ap.add_argument("--lr", type=float, default=0.005)
     ap.add_argument("--tv-weight", type=float, default=0.05)

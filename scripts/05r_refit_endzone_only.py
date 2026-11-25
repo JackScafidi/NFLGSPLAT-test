@@ -39,6 +39,7 @@ from nfl_gsplat.pose.coco import coco_to_body
 from nfl_gsplat.pose.fit_mono2d import merge_into_refit
 from nfl_gsplat.pose.keypoint_filter import reject_outliers
 from nfl_gsplat.render.play_timeline import ankle_ground, clip_offset, ground_positions
+from nfl_gsplat import settings
 
 _spec = importlib.util.spec_from_file_location("refit_mono_05p", Path(__file__).with_name("05p_refit_mono.py"))
 _p05 = importlib.util.module_from_spec(_spec)
@@ -117,7 +118,7 @@ def main() -> None:
                          "fitted (play 1: 84 more records; Madubuike's endzone limb joints over 25 px 113 -> 50)")
     ap.add_argument("--merged-window", type=int, default=6, help="swallowed's look-back, clip frames")
     ap.add_argument("--workers", type=int, default=6)
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--no-roster-betas", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()

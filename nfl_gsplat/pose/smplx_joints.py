@@ -31,13 +31,14 @@ from pathlib import Path
 
 import numpy as np
 
+from nfl_gsplat import settings
 from nfl_gsplat.errors import SetupError
 from nfl_gsplat.pose.forward_kinematics import NUM_BODY_JOINTS
 from nfl_gsplat.utils.logging import get_logger
 
 _LOG = get_logger(__name__)
 
-DEFAULT_MODEL_DIR = Path("data/body_models")
+DEFAULT_MODEL_DIR = settings.get().body_models
 
 
 def _load_model(model_dir, gender: str, batch: int, device: str):
@@ -45,8 +46,8 @@ def _load_model(model_dir, gender: str, batch: int, device: str):
         import smplx
     except ImportError as exc:  # pragma: no cover - env-gated
         raise SetupError(
-            "smplx is not installed in this environment. The pose stack lives "
-            "in C:/venvs/smplx312; see the local-machine notes."
+            "smplx is not installed in this environment. The pose stack runs in "
+            "the smplx312 environment (settings.python_smplx in local.yaml)."
         ) from exc
 
     model_dir = Path(model_dir)

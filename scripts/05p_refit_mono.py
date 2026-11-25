@@ -44,6 +44,7 @@ from nfl_gsplat.pose.fit_mono2d import (Mono2DConfig, blend_params, body_frame_s
 from nfl_gsplat.pose.forward_kinematics import fk_forward, load_smplx_skeleton
 from nfl_gsplat.pose.fuse_smplx import SMPLXFitConfig, _pack_params
 from nfl_gsplat.render.play_timeline import ankle_ground, ground_positions
+from nfl_gsplat import settings
 
 FPS = 59.94
 # Inside a player's fused span (frames the triangulation dropped) the one-view
@@ -465,7 +466,7 @@ def main() -> None:
     ap.add_argument("--fused-base", type=Path, default=None,
                     help="the two-view-only cache to start from when --refit already holds one-view records "
                          "(without it such a --refit is refused; see base_cache)")
-    ap.add_argument("--body-models", type=Path, default=Path("data/body_models"))
+    ap.add_argument("--body-models", type=Path, default=settings.get().body_models)
     ap.add_argument("--cam", default="sideline")
     ap.add_argument("--stride", type=int, default=2,
                     help="fit every n-th frame (the timeline interpolates; 05k renders at 2)")
