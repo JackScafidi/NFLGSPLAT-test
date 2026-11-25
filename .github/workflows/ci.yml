@@ -26,10 +26,10 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install system libs for opencv-python
+      - name: Install system libs (opencv-python; ffmpeg for tests/test_field.py)
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0
+          sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0 ffmpeg
 
       - name: Install package + test extras
         run: |
