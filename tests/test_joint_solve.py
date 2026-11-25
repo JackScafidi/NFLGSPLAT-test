@@ -226,6 +226,34 @@ def test_self_audit_drops_identity_shifted_frame():
     assert np.linalg.norm(C_rec - C_TRUE) < 0.5          # unpoisoned
 
 
+def test_anchor_candidate_converges_within_its_budget(monkeypatch):
+    # The anchor's early-accept must rest on a CONVERGED solve. Cut off at
+    # max_nfev (status 0), where it stops depends on floating-point details:
+    # the scenario above early-accepted on Windows (centre 0.10 m off) but
+    # missed the gate on Linux CI and fell back to the grid (0.53 m off).
+    import scipy.optimize as so
+    from nfl_gsplat.calibration.field_landmarks import YARD_LINE_SPACING_M
+    from nfl_gsplat.calibration.joint_solve import solve_fixed_center
+    statuses = []
+    real = so.least_squares
+
+    def spy(*a, **kw):
+        sol = real(*a, **kw)
+        if kw.get("method") == "trf":
+            statuses.append(sol.status)
+        return sol
+    monkeypatch.setattr(so, "least_squares", spy)
+    ids, fd, f_true, R_true = _synthetic_frames(n_frames=40, noise_px=0.3)
+    world, uv = fd[17]
+    world = world.copy(); world[:, 0] += YARD_LINE_SPACING_M
+    fd[17] = (world, uv)
+    solve_fixed_center(
+        corrs_by_frame=None, image_size=(W, H),
+        init_results=_init_results_from_truth(ids, f_true, R_true, 40, jitter=1.0),
+        _frame_data_override=fd)
+    assert statuses[0] != 0                              # the anchor solve converged
+
+
 def test_self_audit_all_frames_bad_fails_loud(monkeypatch):
     from nfl_gsplat.calibration import joint_solve as js
     from nfl_gsplat.errors import CalibrationError

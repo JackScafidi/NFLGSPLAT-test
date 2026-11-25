@@ -64,9 +64,13 @@ _XS_R = 0.01
 _XS_F = 1000.0
 
 _SHORT_NFEV = 12         # per-candidate scoring solve (cost discrimination, not convergence)
-_ANCHOR_NFEV = 50        # the plausible-anchor candidate gets a real convergence budget:
+_ANCHOR_NFEV = 200       # the plausible-anchor candidate gets a real convergence budget:
                          # it is a trusted physical prior and, when it early-accepts, the
-                         # grid is never scored
+                         # grid is never scored. 50 was too few: the 40-frame synthetic
+                         # anchor needs 75-80 evaluations (2026-11-24), and cut off at 50
+                         # its early-accept turned on floating-point details (Windows
+                         # accepted, Linux CI fell back to the grid, centre 0.10 vs 0.53 m).
+                         # Real footage has no anchor, so this costs nothing there.
 _STAGE_A_NFEV = 1000     # subsample deep solve
 _STAGE_B_NFEV = 600      # full warm-started solve
 _RESCUE_NFEV = 300       # per-frame fixed-C LM refit
