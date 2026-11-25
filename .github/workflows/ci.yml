@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Run by hand from the Actions tab ("Run workflow") or `gh workflow run ci`.
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
