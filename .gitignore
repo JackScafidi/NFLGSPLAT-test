@@ -100,7 +100,8 @@ kp_eval/
 /data/
 
 # agent tooling scratch
-.claude/
+.claude/*
+!.claude/settings.json
 .claude-flow/
 .venv-smplx/
 third_party/
