@@ -223,7 +223,7 @@ def find_links(df: pd.DataFrame, ground: dict, teams: dict, *, cam: str = "sidel
                         link.score += 1.0
                         link.reasons.append(f"{other_cam} carries {d.pid} on to the birth's spot")
             links.append(link)
-    links.sort(key=lambda l: (l.reject is not None, l.direction is not None, -l.score))
+    links.sort(key=lambda lk: (lk.reject is not None, lk.direction is not None, -lk.score))
     return links
 
 

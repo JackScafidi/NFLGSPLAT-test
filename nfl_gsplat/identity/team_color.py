@@ -240,8 +240,8 @@ def split_by_saturation_votes(sats_by_cam, *, min_detections: int = 8):
             raise KitSplitError(f"{cam}: {exc}") from None
         centres[cam] = (float(c[0]), float(c[1]))
         mid, span = 0.5 * (c[0] + c[1]), max(float(c[1] - c[0]), 1e-6)
-        for k, l, v in zip([k for k, o in zip(keys, ok) if o], lab, sat[ok]):
-            counts.setdefault(k, [0, 0])[int(l)] += 1
+        for k, lb, v in zip([k for k, o in zip(keys, ok) if o], lab, sat[ok]):
+            counts.setdefault(k, [0, 0])[int(lb)] += 1
             margin[k] = margin.get(k, 0.0) + (v - mid) / span
     labels = {}
     for k, (n0, n1) in counts.items():

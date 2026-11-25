@@ -160,7 +160,8 @@ def main() -> None:
     print(f"fit_cross labels by camera: {cross.groupby('cam').size().to_dict()}; by joint: {cross.groupby('joint').size().to_dict()}")
     # the split: every val_every-th sideline frame, with its endzone frame
     val_side = {f for i, f in enumerate(frames) if i % a.val_every == a.val_every - 1}
-    is_val = lambda cam, cf: (cf if cam == "sideline" else cf - offset) in val_side
+    def is_val(cam, cf):
+        return (cf if cam == "sideline" else cf - offset) in val_side
     n_img = {"train": 0, "val": 0}
     for split in ("train", "val"):
         (out / "images" / split).mkdir(parents=True, exist_ok=True)

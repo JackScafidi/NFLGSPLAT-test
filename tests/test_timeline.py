@@ -269,7 +269,8 @@ def test_smooth_axis_angles_damps_noise_and_keeps_a_ramp():
     noisy = ramp + rng.normal(0, 0.1, ramp.shape)
     sm = tl.smooth_axis_angles(noisy, window=9)
     assert sm.shape == noisy.shape
-    d2 = lambda a: np.abs(np.diff(a, n=2, axis=0)).mean()
+    def d2(a):
+        return np.abs(np.diff(a, n=2, axis=0)).mean()
     assert d2(sm) < 0.3 * d2(noisy)                                    # the noise goes
     assert abs(sm[30, 0, 0] - ramp[30, 0, 0]) < 0.05                   # the ramp stays
     assert np.allclose(tl.smooth_axis_angles(ramp, window=1), ramp)   # off
@@ -287,7 +288,8 @@ def test_gaussian_pose_smoother_kills_per_frame_noise_the_median_keeps_and_passe
     seq[:, 5, 0] = swing + noise
     g = tl.smooth_axis_angles_gaussian(seq, sigma=2.0)
     m = tl.smooth_axis_angles(seq, window=7)
-    resid = lambda a: np.abs(a[:, 5, 0] - swing)[10:-10].max()         # away from the held edges
+    def resid(a):                                                      # away from the held edges
+        return np.abs(a[:, 5, 0] - swing)[10:-10].max()
     assert resid(g) < 0.03                                             # noise gone, swing kept (< 5 %)
     assert resid(m) > 0.08                                             # the median keeps the toggling
     assert g.shape == seq.shape and np.allclose(g[:, :5], 0.0)         # untouched joints stay zero
@@ -741,7 +743,6 @@ def _st_(pid, x, y):
 
 
 def test_stand_still_bridges_a_close_hole_and_holds_a_slow_end_but_not_where_a_teammate_stands():
-    import numpy as np
 
     from nfl_gsplat.render import timeline as tlm
 
@@ -1139,7 +1140,8 @@ def test_build_timeline_gates_low_confidence_keyframes():
     poses = {1: {f: (bp[f], up, np.zeros(10), "fused") for f in (0, 4, 8)}}
     conf = {1: {0: np.full(21, 0.9), 4: np.where(np.arange(21) == 17, 0.05, 0.9), 8: np.full(21, 0.9)}}
     kw = dict(pose_smooth=0, pose_sigma=0, clamp_joints=False, orient_sigma=0)
-    one = lambda out, f: [x for x in out.states[f] if x.pid == 1][0]
+    def one(out, f):
+        return [x for x in out.states[f] if x.pid == 1][0]
     raw = tl.build_timeline(frames, ground, poses, **kw)
     assert abs(one(raw, 4).body_pose[17][1] + 1.2) < 1e-6
     gated = tl.build_timeline(frames, ground, poses, conf_by_pid=conf, conf_min=0.3, conf_max_run=30, **kw)
@@ -1186,7 +1188,8 @@ def test_tilt_limit_follows_the_nearest_records_source():
 
 
 def test_apply_infill_swaps_only_the_poses_the_file_carries():
-    rec = lambda v: (np.full((21, 3), v), np.zeros(3), np.zeros(10), "fused")
+    def rec(v):
+        return (np.full((21, 3), v), np.zeros(3), np.zeros(10), "fused")
     poses = {9: {480: rec(0.1), 482: rec(0.2)}, 6: {480: rec(0.3)}}
     infill = {9: {482: np.full((21, 3), 9.0)}, 77: {500: np.zeros((21, 3))}}
     out, n = tl.apply_infill(poses, infill)
@@ -1307,7 +1310,6 @@ def test_stand_still_bridge_blends_the_pose_across_the_hole():
     whole state into the first half and the far end's into the second -- his elbow went from 9 to 76 degrees in one
     frame at the midpoint (hinge jerk 67 deg/frame^2). The bridge now SLERPs the body pose and the orientation."""
     import numpy as np
-    from scipy.spatial.transform import Rotation
 
     from nfl_gsplat.render import timeline as tlm
 

@@ -4,6 +4,9 @@ type: repo
 agent: CodeActAgent
 ---
 
+> **Archived 2026-11-24.** Context for the OpenHands agent, moved from `.openhands/microagents/repo.md`. Claude's project context is [CLAUDE.md](../../CLAUDE.md).
+
+
 # NFLGSPLAT — repository context (always loaded)
 
 You are working on **NFLGSPLAT**: NFL All-22 broadcast footage → camera

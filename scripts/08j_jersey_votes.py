@@ -30,7 +30,7 @@ def main() -> None:
     videos = {cam: play / f"{cam}.mp4" for cam in ("sideline", "endzone")}
     cfg = JerseyOCRConfig(backend=args.ocr_backend, top_k_frames=args.ocr_top_k, use_gpu=not args.cpu)
     votes: dict = {}
-    out = vote_jersey_numbers(df, videos, cfg, votes_out=votes)
+    vote_jersey_numbers(df, videos, cfg, votes_out=votes)
     agree = 0
     n = 0
     for (cam, tid), counts in votes.items():

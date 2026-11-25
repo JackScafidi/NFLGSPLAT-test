@@ -214,8 +214,11 @@ def test_release_swings_the_foot_back_to_the_fit_instead_of_snapping():
     # ... and never falls farther behind the moving hip than the stance's end or the fit's own swing put it (the
     # pelvis does not drag it back): the reach along the motion (here -y) stays at or above the lower of the two
     pel, ank_fit2 = fl.ankle_world_xy(seq, rest, parents)
-    reach = lambda t: -(ank_rel[t, li][1] - pel[t][1])
-    fit_reach = lambda t: -(ank_fit2[t, li][1] - pel[t][1])
+    def reach(t):
+        return -(ank_rel[t, li][1] - pel[t][1])
+
+    def fit_reach(t):
+        return -(ank_fit2[t, li][1] - pel[t][1])
     assert all(reach(t) >= min(reach(t1), fit_reach(t)) - 0.02 for t in range(t1 + 1, t1 + 7))
     # a release frame owned by the next stance of the same leg is not released
     both = [s for s in st if s[0] == side][:2]

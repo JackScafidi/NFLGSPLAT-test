@@ -191,7 +191,7 @@ def main() -> None:
         by_colour = {"T1": args.saturated, "T0": other}
         disagree = [lab for lab in labels if mapping.get(lab) not in ("?", by_colour.get(lab))]
         print(f"kit colour names the teams: T1 (saturated) = {args.saturated}, T0 = {other}"
-              + (f"; the roster vote DISAGREES on {disagree} (it said {[mapping[l] for l in disagree]})"
+              + (f"; the roster vote DISAGREES on {disagree} (it said {[mapping[lbl] for lbl in disagree]})"
                  if disagree else "; the roster vote agrees"))
         mapping = {lab: by_colour.get(lab, "?") for lab in labels}
     elif args.home is not None and len(labels) == 2 and args.home in teams:
@@ -309,7 +309,7 @@ def main() -> None:
     pickle.dump({"merged": merged, "stitch": {}},
                 open(play / "identity_resolved.pkl", "wb"))
     if specialists:
-        print(f"   not on the field on a scrimmage down (--kicking-play to allow): "
+        print("   not on the field on a scrimmage down (--kicking-play to allow): "
               + ", ".join(f"id {g} #{j} {n} ({p})" for g, j, n, p in specialists)[:300])
     if overruled:
         print(f"   kit overruled the number on {len(overruled)} ids: "

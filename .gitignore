@@ -105,3 +105,12 @@ kp_eval/
 .venv-smplx/
 third_party/
 .uv-cache/
+
+# Obsidian vault (docs/): share settings, not per-device state or pasted images
+docs/.obsidian/workspace*.json
+docs/.obsidian/cache
+docs/.trash/
+docs/_attachments/
+# Obsidian plugins: commit their settings, not their code (each device installs it)
+docs/.obsidian/plugins/*/*
+!docs/.obsidian/plugins/*/data.json
