@@ -19,7 +19,14 @@ dependencies = [
     "rich>=13.0",
     "opencv-python>=4.8",
     "pandas>=2.0",
-    "pyarrow>=14.0",
+    # <21: pyarrow 21+ is built against NumPy 2, so under numpy<2 above every
+    # Parquet read and write fails. 20.0.0 is the version tested.
+    "pyarrow>=14.0,<21",
+    # torch: the pose, render and timeline code and 11 CPU tests import it.
+    # Install it first from the PyTorch index that matches the machine, then
+    # this package: CPU, `pip install torch --index-url https://download.pytorch.org/whl/cpu`;
+    # NVIDIA, the `cu128` index. Left to plain PyPI, Linux pulls the CUDA build.
+    "torch>=2.1",
     "plyfile>=1.0",
     "imageio>=2.34",
     "imageio-ffmpeg>=0.5",
