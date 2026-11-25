@@ -33,6 +33,6 @@ Also deferred to v1 follow-up: **geometric augmentation** (spec wanted small aff
 with consistent uv transform; only color/blur shipped) — the main overfit defense on
 limited footage, add once basic training works.
 
-GPU training runs on [[pace-gpu-embers-partition]]. Acceptance test = the
+GPU training ran on PACE (archived: [pace-gpu-embers-partition](../archive/pace-gpu-embers-partition.md); everything now runs locally, [decision 0001](../decisions/0001-local-only-no-pace.md)). Acceptance test = the
 `scripts/diag_calib.py` field-overlay tracking the painted lines across the frame.
 Related: [[next-cycle-focal-pose-from-homography]].

@@ -1,0 +1,72 @@
+{
+  "collapse-filter": false,
+  "search": "-path:archive -path:templates",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:concepts",
+      "color": {
+        "a": 1,
+        "rgb": 15909198
+      }
+    },
+    {
+      "query": "file:STATE OR file:Home",
+      "color": {
+        "a": 1,
+        "rgb": 14882871
+      }
+    },
+    {
+      "query": "path:findings",
+      "color": {
+        "a": 1,
+        "rgb": 5148658
+      }
+    },
+    {
+      "query": "path:decisions",
+      "color": {
+        "a": 1,
+        "rgb": 5025616
+      }
+    },
+    {
+      "query": "path:plays",
+      "color": {
+        "a": 1,
+        "rgb": 15895608
+      }
+    },
+    {
+      "query": "path:journal",
+      "color": {
+        "a": 1,
+        "rgb": 10250974
+      }
+    },
+    {
+      "query": "path:reference OR path:superpowers OR path:agent-context",
+      "color": {
+        "a": 1,
+        "rgb": 10395294
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": true,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.2,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": true,
+  "centerStrength": 0.5,
+  "repelStrength": 12,
+  "linkStrength": 1,
+  "linkDistance": 250,
+  "scale": 0.18144368465060565,
+  "close": false
+}

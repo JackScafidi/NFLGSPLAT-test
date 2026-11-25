@@ -1,0 +1,18 @@
+{
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "_attachments",
+  "newFileLocation": "current",
+  "showUnsupportedFiles": false,
+  "userIgnoreFilters": [
+    "README.md",
+    "archive/README.md",
+    "concepts/README.md",
+    "decisions/README.md",
+    "findings/README.md",
+    "journal/README.md",
+    "plays/README.md",
+    "superpowers/README.md"
+  ]
+}

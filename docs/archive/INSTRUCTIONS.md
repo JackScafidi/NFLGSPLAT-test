@@ -1,3 +1,5 @@
+> **Archived 2026-11-24.** A conda runbook for the per-play season-tree layout. Superseded by the local pipeline (`scripts/pipeline_play.sh`); see [CLAUDE.md](../../CLAUDE.md) and [the pipeline](../reference/pipeline.md).
+
   Here's the runbook for the per-play season-tree layout.
 
   ---

@@ -1,3 +1,5 @@
+> **Archived 2026-11-24.** PACE is not used: see [decision 0001](../decisions/0001-local-only-no-pace.md).
+
 # Training the field splat on PACE
 
 Trains `field.ply` from a **prepared** `field/transforms.json` — the poses are

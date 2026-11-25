@@ -7,6 +7,9 @@ metadata:
   originSessionId: 958bce15-2cda-4c3c-a75c-4a5a76a63e5e
 ---
 
+> **Archived 2026-11-24.** Superseded by [decision 0001](../decisions/0001-local-only-no-pace.md): everything runs locally.
+
+
 Any NFLGSPLAT work that runs on the GPU (model training, inference jobs, anything
 CUDA) must be submitted to the **embers** partition on GT PACE Phoenix.
 
