@@ -88,6 +88,11 @@ pyright-lsp needs the `pyright` language server on PATH
 - A decision is never rewritten to say something else. A new decision
   supersedes it, and both notes say so in `status`.
 - Measured results include numbers, units and the play they came from.
+- `tests/test_docs_vault.py` enforces these rules in CI. It checks that every
+  link resolves, every note is in its folder's index, front matter is present,
+  decisions are numbered with the index's status matching the note's, and
+  README pointers are hidden. Run it after editing notes:
+  `pytest tests/test_docs_vault.py -q`.
 
 ## Hard rules
 
