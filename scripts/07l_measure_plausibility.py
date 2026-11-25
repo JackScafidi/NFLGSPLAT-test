@@ -18,7 +18,6 @@ Runs under the smplx venv (PYS): it needs the body model, and the pose caches ar
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import pickle
 from pathlib import Path

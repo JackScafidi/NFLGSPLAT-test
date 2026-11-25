@@ -56,23 +56,23 @@ def main() -> None:
     teams = _teams(P)
     links = cl.find_links(df, ground, teams, cam=a.cam, lo=lo, hi=hi, max_gap=a.max_gap, max_m=a.max_m)
     print(f"{a.cam}: window {lo}-{hi}, {len(links)} candidate pairs")
-    for l in links:
-        tag = "REJECT" if l.reject else ("DIRECTION?" if l.direction else ("LINK  " if l.score >= a.min_score else "weak  "))
-        print(f"{tag} score {l.score:4.1f}  {l.keep:4d} <- {l.drop:4d} (track {l.track}): death {l.death_last}, birth "
-              f"{l.birth_first}, overlap {l.overlap}, {l.dist_m} m | " + "; ".join(l.reasons)
-              + (f" | {l.reject}" if l.reject else "") + (f" | {l.direction}" if l.direction else ""))
-    chosen = [l for l in links if l.reject is None and l.direction is None and l.score >= a.min_score]
+    for lk in links:
+        tag = "REJECT" if lk.reject else ("DIRECTION?" if lk.direction else ("LINK  " if lk.score >= a.min_score else "weak  "))
+        print(f"{tag} score {lk.score:4.1f}  {lk.keep:4d} <- {lk.drop:4d} (track {lk.track}): death {lk.death_last}, birth "
+              f"{lk.birth_first}, overlap {lk.overlap}, {lk.dist_m} m | " + "; ".join(lk.reasons)
+              + (f" | {lk.reject}" if lk.reject else "") + (f" | {lk.direction}" if lk.direction else ""))
+    chosen = [lk for lk in links if lk.reject is None and lk.direction is None and lk.score >= a.min_score]
     if not chosen:
         return
     print("\nto apply:")
-    for l in chosen:
-        for cmd in cl.fold_commands(l, str(P)):
+    for lk in chosen:
+        for cmd in cl.fold_commands(lk, str(P)):
             print("  " + " ".join(cmd))
     if not a.apply:
         print("dry run. Re-run with --apply.")
         return
-    for l in chosen:
-        for cmd in cl.fold_commands(l, str(P)):
+    for lk in chosen:
+        for cmd in cl.fold_commands(lk, str(P)):
             subprocess.run([PYS] + cmd, check=True)
 
 

@@ -68,13 +68,6 @@ def main() -> None:
     if offset is None and (P / "poses_tri.json").exists():
         offset = int(pickle.load(open(P / "poses_tri.json", "rb")).get("offset", 0))
     offset = offset or 0
-    ident = args.identity or (P / "identity_resolved.pkl")
-    roster_h = {}
-    if ident.exists():
-        merged = pickle.load(open(ident, "rb")).get("merged", {})
-        roster_h = {int(pid): float(p.height_m) for pid, p in merged.items()
-                    if getattr(p, "height_m", None) and getattr(p, "player", "")
-                    and not str(p.player).startswith("P")}
     print(f"keypoints for {len(views)} ids, min conf {args.min_conf}, endzone offset {offset:+d}")
 
     for path in args.refits:

@@ -57,4 +57,8 @@ target-version = "py310"
 select = ["E", "F"]
 # E702 (multi-statement-on-one-line semicolon) is intentional for tight numpy
 # array initializers and test scaffolding. Keep the rest of E + F.
-ignore = ["E702"]
+# E501 (line too long) is ignored (decided 2026-11-24): 2201 lines in 139 files
+# ran past 110, mostly code with aligned trailing comments. Reflowing them by
+# hand is a large, risky diff; `ruff format` rewrites 455 files and still leaves
+# 875. line-length = 110 above stays as the guide for new code.
+ignore = ["E702", "E501"]

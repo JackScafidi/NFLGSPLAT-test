@@ -34,7 +34,7 @@ def test_receiver_case_is_found_with_contact_and_the_overlap_is_dropped_first():
     cmds = cl.fold_commands(best, "P")
     assert cmds[0][0].endswith("08za_drop_rows.py") and cmds[0][cmds[0].index("--frames") + 1:cmds[0].index("--frames") + 3] == ["89", "93"]
     assert cmds[1][0].endswith("08z_fold_ids.py") and "--track-id" in cmds[1]
-    assert not any(l.drop == 6 or l.keep == 6 and l.drop == 77 and l.reject is None for l in links)   # the defender is not linked
+    assert not any(lk.drop == 6 or lk.keep == 6 and lk.drop == 77 and lk.reject is None for lk in links)   # the defender is not linked
 
 
 def test_vetoes_teams_jerseys_and_the_other_camera():
@@ -69,8 +69,8 @@ def test_far_or_late_births_are_not_candidates():
     rows += _rows(3, 3, range(52, 80), 100, 0.0, 300)                            # born back at the start, 2 m+ away
     df = pd.DataFrame(rows)
     links = cl.find_links(df, _ground(df), {1: "KC", 2: "KC", 3: "KC"}, cam="sideline", lo=0, hi=120)
-    assert not any(l.drop == 2 for l in links)                                   # past the gap: not a candidate
-    assert all(l.score < cl.MIN_SCORE for l in links)                            # the far birth is listed weak, never applied
+    assert not any(lk.drop == 2 for lk in links)                                   # past the gap: not a candidate
+    assert all(lk.score < cl.MIN_SCORE for lk in links)                            # the far birth is listed weak, never applied
 
 
 def test_pile_box_deaths_are_vetoed_and_older_owners_flag_the_direction():
@@ -87,7 +87,7 @@ def test_pile_box_deaths_are_vetoed_and_older_owners_flag_the_direction():
     rows += _rows(4, 46, range(62, 120), 100, 0.0, 300)                     # 4 boxed again after
     df = pd.DataFrame(rows)
     links = cl.find_links(df, _ground(df), {1: "BAL", 4: "BAL"}, cam="sideline", lo=0, hi=120)
-    best = [l for l in links if l.keep == 1 and l.drop == 4][0]
+    best = [lk for lk in links if lk.keep == 1 and lk.drop == 4][0]
     assert best.reject is None and best.direction and "was here before" in best.direction
     # the same pair with no history of 4 -> a plain link
     df2 = pd.DataFrame(_rows(1, 40, range(20, 60), 100, 0.0, 300) + _rows(4, 46, range(62, 120), 100, 0.0, 300))

@@ -334,7 +334,7 @@ def main() -> None:
                 labels[f] = lab
         n_two = sum(int(((s_ >= 0) & (e_ >= 0)).sum()) for s_, e_ in sources.values())
         print(f"fused: {sum(len(p) for p in placements.values())} placements, {n_two} seen by both cameras, "
-              f"{sum(int((l >= 0).sum()) for l in labels.values())} carry a kit")
+              f"{sum(int((lv >= 0).sum()) for lv in labels.values())} carry a kit")
         tracks = link3d.link(placements, labels=labels if args.kit_link != "off" else None, fps=args.fps,
                              label_penalty_m=KIT_PENALTY_M if args.kit_link == "soft" else None)
         print(f"linked {len(tracks)} tracks over {len(placements)} frames; "

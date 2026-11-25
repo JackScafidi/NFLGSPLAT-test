@@ -22,15 +22,15 @@ def test_leg_angles_cycle_between_strike_and_swing():
 def test_stance_sweep_plants_the_foot_to_first_order():
     """Over a stance the hip sweeps 2 A radians while the body travels d L metres: with A = d L / (2 l)
     the foot's forward position (l sin(hip) + travel) stays put to first order."""
-    L, d, l = 2.0, gait.DUTY, gait.LEG_M
-    amp = np.arcsin(d * L / (2 * l))
+    L, d, leg = 2.0, gait.DUTY, gait.LEG_M
+    amp = np.arcsin(d * L / (2 * leg))
     n = 20
     drift = []
     for k in range(n + 1):
         phase = 2 * np.pi * d * k / n
         travel = d * L * k / n
         hip, _ = gait.leg_angles(phase, amp)
-        drift.append(l * np.sin(hip) + travel)
+        drift.append(leg * np.sin(hip) + travel)
     assert np.ptp(drift) < 1e-9                                  # planted exactly in the sagittal plane
 
 
@@ -89,7 +89,6 @@ def test_leg_yaw_turns_the_legs_onto_the_motion_and_runs_a_backpedal_backwards()
 
 def test_gait_sequence_plants_along_the_velocity_when_the_body_faces_across_it():
     """A body facing -y but moving along +x at 7 m/s: the stance ankle must stand still in the WORLD."""
-    from scipy.spatial.transform import Rotation as R_
     from nfl_gsplat.pose.forward_kinematics import load_smplx_skeleton, pose_params_to_rotmats, posed_joint_positions
     import pathlib
     if not pathlib.Path("data/body_models/smplx/SMPLX_NEUTRAL.npz").exists():
